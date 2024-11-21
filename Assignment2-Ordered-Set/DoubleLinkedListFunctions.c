@@ -59,23 +59,31 @@ void *deleteDoubleLinkedList(DoubleLinkedList* list) {
 * 
 * @return error status
 */
-llError deleteCurrent(DoubleLinkedList* list) {
+void deleteCurrent(DoubleLinkedList* list) {
 	llError result = ok;
 	Node* todelete;
-	if (list->current == list->tail) {
-		// Current node is tail => Cannot remove node
-		result = illegalNode;	
-	}
-	else {
 		//1. Keep pointer to node to be deleted.
 		todelete = list->current;
-		//2. Set Successor of prev to successor of node to be deleted.
-		list->current->prev->next = todelete->next;
-		//3. Free the memory
+		//if The head is being deleted, make the next node the head.
+		if (todelete == list->head) {
+			list->head = todelete->next;
+		}
+		//if the tail is being deleted, make the prev node the tail
+		else if (todelete == list->tail) {
+			list->tail = todelete->prev;
+		}
+		if (todelete != list->tail) {
+			//2. Set next of prev to next of node to be deleted.
+			list->current->prev->next = todelete->next;
+		}
+		if (todelete != list->head) {
+			//3. Set prev of next to prev of node to be deleted.
+			list->current->next->prev = todelete->prev;
+		}
+		list->current = todelete->prev;
+		//4. Free the memory
 		free(todelete);
 	}
-	return result;
-}
 
 /**
 * Returns the data stored inside the current node. Provided it is not the head or tail.
