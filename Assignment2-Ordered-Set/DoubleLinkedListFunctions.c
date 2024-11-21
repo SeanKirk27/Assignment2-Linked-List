@@ -17,9 +17,10 @@ DoubleLinkedList* createDoubleLinkedList() {
 		list->head = (Node*)malloc(sizeof(Node));
 		//Check if successful
 		if (list->head != NULL) {
-			list->head->next = NULL;
+			list->head->next = list->tail;
 			list->head->prev = NULL;
 			list->current = list->head;
+			list->tail->next = NULL;
 		}
 		//If it failed, deallocate the list and set it NULL
 		else {
@@ -47,6 +48,8 @@ void *deleteDoubleLinkedList(DoubleLinkedList* list) {
 		free(nextNode);
 	}
 	free(list->head);
+	free(list->current);
+	free(list->tail);
 	free(list);
 }
 
@@ -59,7 +62,7 @@ void *deleteDoubleLinkedList(DoubleLinkedList* list) {
 llError deleteCurrent(DoubleLinkedList* list) {
 	llError result = ok;
 	Node* todelete;
-	if (list->current == NULL) {
+	if (list->current == list->tail) {
 		// Current node is tail => Cannot remove node
 		result = illegalNode;	
 	}
@@ -79,7 +82,7 @@ llError deleteCurrent(DoubleLinkedList* list) {
 */
 data* getData(DoubleLinkedList* list) {
 	// is current head or tail?
-	if (list->current != list->head && list->current != NULL) {
+	if (list->current != list->head && list->current != list->tail) {
 		// no, return data
 		return &(list->current->d);
 	}
@@ -96,7 +99,7 @@ data* getData(DoubleLinkedList* list) {
 */
 llError gotoNextNode(DoubleLinkedList* list) {
 	llError result = ok;
-	// is successor of current tail?
+	// is successor of current NULL?
 	if (list->current->next != NULL) {
 		// no -> move forward
 		list->current = list->current->next;
@@ -139,8 +142,7 @@ void gotoHead(DoubleLinkedList* list) {
 * Changes current node to the node just before tail
 */
 void gotoTail(DoubleLinkedList* list) {
-	//While loop selects the next node until the last node is selected, which is not the tail, but the node just before it.
-	while (gotoNextNode(list) == ok);
+	list->current = list->tail;
 }
 
 /**
