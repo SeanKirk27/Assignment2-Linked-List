@@ -12,5 +12,5 @@ void gotoHead(DoubleLinkedList* list);
 void gotoTail(DoubleLinkedList* list);
 llError insertAfter(data* d, DoubleLinkedList* list);
 llError insertBefore(data* d, DoubleLinkedList* list);
-void deleteCurrent(DoubleLinkedList* list);
+llError deleteCurrent(DoubleLinkedList* list);
 #endif
