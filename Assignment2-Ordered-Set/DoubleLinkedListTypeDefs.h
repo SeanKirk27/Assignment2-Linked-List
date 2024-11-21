@@ -34,7 +34,6 @@ typedef struct n {
 typedef struct {
 	Node* head;
 	Node* current;
-	Node* tail;
 } DoubleLinkedList;
 
 
