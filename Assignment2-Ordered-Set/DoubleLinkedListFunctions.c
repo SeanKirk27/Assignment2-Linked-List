@@ -59,8 +59,8 @@ void *deleteDoubleLinkedList(DoubleLinkedList* list) {
 llError deleteCurrent(DoubleLinkedList* list) {
 	llError result = ok;
 	Node* todelete;
-	if (list->current == NULL) {
-		// Current node is tail => Cannot remove node
+	if (list->current == NULL || list->current == list->head) {
+		// Current node is tail or head => Cannot remove node
 		result = illegalNode;	
 	}
 	else {
@@ -68,18 +68,22 @@ llError deleteCurrent(DoubleLinkedList* list) {
 		todelete = list->current;
 		//2. Set Successor of prev to successor of node to be deleted.
 		list->current->prev->next = todelete->next;
-		//3. Free the memory
+		//3. Set Prev of next to prev of node to be deleted.
+		list->current->next->prev = todelete->prev;
+		//4. Set the current node to the previous node
+		list->current = todelete->prev;
+		//5. Free the memory
 		free(todelete);
 	}
 	return result;
 }
 
 /**
-* Returns the data stored inside the current node. Provided it is not the head or tail.
+* Returns the data stored inside the current node. Provided it is not the tail.
 */
 data* getData(DoubleLinkedList* list) {
-	// is current head or tail?
-	if (list->current != list->head && list->current != NULL) {
+	// is current tail?
+	if (list->current != NULL) {
 		// no, return data
 		return &(list->current->d);
 	}
@@ -114,10 +118,10 @@ llError gotoNextNode(DoubleLinkedList* list) {
 */
 llError gotoPreviousNode(DoubleLinkedList* list) {
 	llError result = ok;
-	// is prev of current head?
-	if (list->current->prev != list->head) {
+	// is current head?
+	if (list->current != list->head) {
 		// no -> move backward
-		list->current = list->current->prev;
+			list->current = list->current->prev;
 	}
 	else {
 		// reached end of list, cannot move any further
@@ -140,32 +144,47 @@ void gotoHead(DoubleLinkedList* list) {
 */
 void gotoTail(DoubleLinkedList* list) {
 	//While loop selects the next node until the last node is selected, which is not the tail, but the node just before it.
-	while (gotoNextNode(list) == ok);
+	//If I were to select the tail itself, nothing else could be done, so we'll go with this.
+	while (list->current->next != NULL) {
+		list->current = list->current->next;
+	}
 }
 
 /**
-* Inserts data after the current node
+* Inserts a new node, with data d, after the current node
 */
 llError insertAfter(data* d, DoubleLinkedList* list) {
 	llError returnvalue = ok;
 	Node* newnode;
-
-	// create new node
-	newnode = (Node*)malloc(sizeof(Node));
-	// allocation successful?
-	if (newnode == NULL) {
-		// allocation failure
-		returnvalue = noMemory;
+	//Can't insert a node after the tail.
+	if (list->current == NULL) {
+		returnvalue = illegalNode;
 	}
 	else {
-		// allocation successful
-		// associate data d with newnode
-		newnode->d = *d;
-		// link newnode into double linked list
-		// 1. set next of newnode to current nodes's next
-		newnode->next = list->current->next;
-		// 2. set next of current node to newnode
-		list->current->next = newnode;
+		// create new node
+		newnode = (Node*)malloc(sizeof(Node));
+		// allocation successful?
+		if (newnode == NULL) {
+			// allocation failure
+			returnvalue = noMemory;
+		}
+		else {
+			// allocation successful
+			// associate data d with newnode
+			newnode->d = *d;
+			// link newnode into double linked list
+			// 1. set next of newnode to current nodes's next
+			newnode->next = list->current->next;
+			//2. Set prev of newnode to current node.
+			newnode->prev = list->current;
+			//Step 3 possible only if the next node is not the tail.
+			if (list->current->next != NULL) {
+				//3. Set prev of next node to newnode.
+				list->current->next->prev = newnode;
+			}
+			// 4. set next of current node to newnode
+			list->current->next = newnode;
+		}
 	}
 	return returnvalue;
 }
@@ -177,23 +196,69 @@ llError insertAfter(data* d, DoubleLinkedList* list) {
 llError insertBefore(data* d, DoubleLinkedList* list) {
 	llError returnvalue = ok;
 	Node* newnode;
-
-	// create new node
-	newnode = (Node*)malloc(sizeof(Node));
-	// allocation successful?
-	if (newnode == NULL) {
-		// allocation failure
-		returnvalue = noMemory;
+	//Can't insert a node before the head
+	if (list->current == list->head) {
+		returnvalue = illegalNode;
 	}
 	else {
-		// allocation successful
-		// associate data d with newnode
-		newnode->d = *d;
-		// link newnode into double linked list
-		// 1. set next of newnode to current node
-		newnode->next = list->current;
-		// 2. set prev of current node to newnode
-		list->current->prev = newnode;
+		// create new node
+		newnode = (Node*)malloc(sizeof(Node));
+		// allocation successful?
+		if (newnode == NULL) {
+			// allocation failure
+			returnvalue = noMemory;
+		}
+		else {
+			// allocation successful
+			// associate data d with newnode
+			newnode->d = *d;
+			// link newnode into double linked list
+			// 1. set next of newnode to current node
+			newnode->next = list->current;
+			//2. Set prev of newnode to prev of current node
+			newnode->prev = list->current->prev;
+			// 3. set next of prev of current node to newnode
+			list->current->prev->next = newnode;
+			// 4. set prev of current node to newnode
+			list->current->prev = newnode;
+		}
 	}
 	return returnvalue;
+}
+
+int main() {
+	DoubleLinkedList* list = createDoubleLinkedList();
+	data d1 = { 1, "Sean", "Hello" };
+	data d2 ={ 2, "Sean", "Hello" };
+	data d3 = { 3, "Sean", "Hello" };
+	data d4 = { 4, "Sean", "Hello" };
+
+	data* d1r = (data*)malloc(sizeof(data));
+	data* d2r = (data*)malloc(sizeof(data));
+	data* d3r = (data*)malloc(sizeof(data));
+	data* d4r = (data*)malloc(sizeof(data));
+
+	insertAfter(&d1, list);
+	gotoNextNode(list);
+	insertBefore(&d2, list);
+	gotoPreviousNode(list);
+	insertBefore(&d3, list);
+	gotoPreviousNode(list);
+	insertBefore(&d4, list);
+	
+	gotoHead(list);
+	gotoNextNode(list);
+	 d1r = getData(list);
+	gotoNextNode(list);
+
+	 d2r = getData(list);
+	gotoNextNode(list);
+
+	 d3r = getData(list);
+	gotoNextNode(list);
+
+	 d4r = getData(list);
+	gotoNextNode(list);
+	printf("%d\n%d\n%d\n%d\n", d1r->id, d2r->id, d3r->id, d4r->id);
+	deleteDoubleLinkedList(list);
 }
