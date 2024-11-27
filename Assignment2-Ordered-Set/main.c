@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "mainheader.h"
 #define _CRT_SECURE_NO_WARNINGS
-#define MAX_SETS 10 // Maximum number of ordered sets
+#define MAX_SETS 10 // Maximum number of ordered sets.
 
 // Placeholder functions for the actual operations (to be implemented elsewhere)
 void createOrderedSet(int index);
