@@ -21,6 +21,9 @@
     <ClCompile Include="DoubleLinkedListTypeDefs.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DoubleLinkedListFunctions.h">
@@ -28,6 +31,9 @@
     </ClInclude>
     <ClInclude Include="DoubleLinkedListTypeDefs.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mainheader.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

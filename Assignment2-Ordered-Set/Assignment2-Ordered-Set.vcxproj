@@ -130,10 +130,12 @@
   <ItemGroup>
     <ClCompile Include="DoubleLinkedListFunctions.c" />
     <ClCompile Include="DoubleLinkedListTypeDefs.c" />
+    <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DoubleLinkedListFunctions.h" />
     <ClInclude Include="DoubleLinkedListTypeDefs.h" />
+    <ClInclude Include="mainheader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
