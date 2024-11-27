@@ -33,13 +33,13 @@ int main() {
     do {
         displayMenu();
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        scanf_s("%d", &choice);
 
         switch (choice) {
         case 1: {
             int index;
             printf("Enter index (0-9) to create an Ordered Set: ");
-            scanf("%d", &index);
+            scanf_s("%d", &index);
             if (index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
             }
@@ -51,7 +51,7 @@ int main() {
         case 2: {
             int index;
             printf("Enter index (0-9) to delete an Ordered Set: ");
-            scanf("%d", &index);
+            scanf_s("%d", &index);
             if (index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
             }
@@ -63,7 +63,7 @@ int main() {
         case 3: {
             int index;
             printf("Enter index (0-9) to add elements to an Ordered Set: ");
-            scanf("%d", &index);
+            scanf_s("%d", &index);
             if (index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
             }
@@ -75,7 +75,7 @@ int main() {
         case 4: {
             int index;
             printf("Enter index (0-9) to remove elements from an Ordered Set: ");
-            scanf("%d", &index);
+            scanf_s("%d", &index);
             if (index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
             }
@@ -87,7 +87,7 @@ int main() {
         case 5: {
             int i1, i2, i3;
             printf("Enter three indices (i1, i2, i3) for Set Intersection: ");
-            scanf("%d %d %d", &i1, &i2, &i3);
+            scanf_s("%d %d %d", &i1, &i2, &i3);
             if (i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS || i3 < 0 || i3 >= MAX_SETS) {
                 printf("Invalid indices. Must be between 0 and 9.\n");
             }
@@ -99,7 +99,7 @@ int main() {
         case 6: {
             int i1, i2, i3;
             printf("Enter three indices (i1, i2, i3) for Set Union: ");
-            scanf("%d %d %d", &i1, &i2, &i3);
+            scanf_s("%d %d %d", &i1, &i2, &i3);
             if (i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS || i3 < 0 || i3 >= MAX_SETS) {
                 printf("Invalid indices. Must be between 0 and 9.\n");
             }
@@ -111,7 +111,7 @@ int main() {
         case 7: {
             int i1, i2, i3;
             printf("Enter three indices (i1, i2, i3) for Set Difference: ");
-            scanf("%d %d %d", &i1, &i2, &i3);
+            scanf_s("%d %d %d", &i1, &i2, &i3);
             if (i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS || i3 < 0 || i3 >= MAX_SETS) {
                 printf("Invalid indices. Must be between 0 and 9.\n");
             }

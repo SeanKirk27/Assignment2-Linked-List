@@ -228,10 +228,10 @@ llError insertBefore(data* d, DoubleLinkedList* list) {
 
 int main() {
 	DoubleLinkedList* list = createDoubleLinkedList();
-	data d1 = { 1, "Sean", "Hello" };
-	data d2 ={ 2, "Sean", "Hello" };
-	data d3 = { 3, "Sean", "Hello" };
-	data d4 = { 4, "Sean", "Hello" };
+	data d1 = { 1, "Sean", "Hello1" };
+	data d2 ={ 2, "", "Hello2" };
+	data d3 = { 3, "Sean", "Hello3" };
+	data d4 = { 4, "Sean", "Hello4" };
 
 	data* d1r = (data*)malloc(sizeof(data));
 	data* d2r = (data*)malloc(sizeof(data));
