@@ -1,188 +1,275 @@
+/** 
+* @file DoubleLinkedListFunctions.c
+* 
+* @brief Implementation of functions for managing/operating on a double linked list.
+*
+* @details Includes the implemented functions for;
+*  > Creating/deleting in the double linked list.
+*  > Inserting, deleting and getting nodes.
+*  > Moving to the next or previous node in the list.
+*
+* @note 
+*
+* @author Sean Kirk - 23376201
+* @note Coding
+* @author Mihail Bizjajevs - 23364734
+* @note Documentation
+* @date 30/11/2024
+*/
+
 #include "DoubleLinkedListTypeDefs.h"
 #include "DoubleLinkedListFunctions.h"
 #include <stdlib.h>
 #include <stdio.h>
+
 /**
-* Creates an empty linked list, head points to tail which is NULL.
+* @brief Creates a new empty double linked list, consisting only of head and tail
 * 
-* @return: Pointer to list if successful.
-*			Pointer to NULL if failed.
+* @pre None
+* @post Empty double linked list is created
+*
+* @details 
+* > Allocates memory for the list and its head node.
+* > Initialises the head node with no next or previous nodes. 
+* > Head points to tail resulting in NULL.
+* > Set the current pointer to the head node.
+* 
+* @return: Pointer to created DoubleLinkedList if successful,
+*		   Pointer to NULL if it fails.
 */
 DoubleLinkedList* createDoubleLinkedList() {
-	DoubleLinkedList* list;
-	list = (DoubleLinkedList*)malloc(sizeof(DoubleLinkedList));
-	// Check for success of allocation
-	if (list != NULL) {
-		//Attempt to allocate memory for head
-		list->head = (Node*)malloc(sizeof(Node));
+	DoubleLinkedList* list; // pointer variable 'list' declared of type 'DoubleLinkedList*' 
+	list = (DoubleLinkedList*)malloc(sizeof(DoubleLinkedList)); // allocates enough memory to hold a 'DoubleLinkedList' structure
+	
+	if (list != NULL) { // Checks if list allocation was successful
+		list->head = (Node*)malloc(sizeof(Node)); // Attempts to allocate memory for the head node.
 		//Check if successful
-		if (list->head != NULL) {
-			list->head->next = NULL;
-			list->head->prev = NULL;
-			list->current = list->head;
+		if (list->head != NULL) { // Checks if head allocation was successful
+			list->head->next = NULL; // Head's next pointer set to NULL
+			list->head->prev = NULL; // Head's previous pointer set to NULL
+			list->current = list->head; // Set the current pointer to the head
 		}
 		//If it failed, deallocate the list and set it NULL
 		else {
-			free(list);
-			list = NULL;
+			free(list);  // If it failed, deallocate the list and
+			list = NULL; // set it to NULL.
 		}
 	}
-	return list;
+	return list; 
 }
 
 
 /**
-* Deletes the double linked list passed to it.  
+* @brief Deletes the double linked list (including all its elements) and frees all associated memory.
+* 
+* @pre valid double linked list exists
+* @post The entire list is deleted.
+* 
+* @details 
+* This deletes all nodes in the 'DoubleLinkedList' and frees the memory allocated for the list structure itself.
+* Iterates through all nodes and frees them one by one.
+* 
+* @param list - A pointer to the 'DoubleLinkedList' thats to be deleted
+* 
+* @note If the list pointer is 'NULL', the function does nothing.
+* 
+* @warning once called, all pointer referencing nodes will become invalid. 
 */
 void *deleteDoubleLinkedList(DoubleLinkedList* list) {
-	Node* nextNode;
+	if (list == NULL) {
+		return; // If the returned list is NULL, there is nothing to delete
+	}
+	
+	Node* nextNode; // temporary pointer to hold the next node
 
-	//Deletes all nodes until the list is empty
-	//Starting from beginning of list
-	list->current = list->head;
-	//Iterate through all nodes in list and delete them
+	// Starting from beginning of the list
+	list->current = list->head; // sets current pointer to head node.
+	
+	// Iterate through all nodes in list and delete all nodes until list is empty
 	while (list->head->next != NULL) {
-		nextNode = list->head->next;
-		list->head->next = list->head->next->next;
-		free(nextNode);
+		nextNode = list->head->next;				// Store the pointer in the next node
+		list->head->next = list->head->next->next;	// Update head's next node to skip the current node
+		free(nextNode);								// Free the skipped node
 	}
-	free(list->head);
-	free(list);
+	free(list->head);	// Free the head node
+	free(list);			// Free the list
 }
 
-
 /**
-*deletes the current node
+* @brief returns the data associated with current node. provided its not the tail.
 * 
-* @return error status
-*/
-llError deleteCurrent(DoubleLinkedList* list) {
-	llError result = ok;
-	Node* todelete;
-	if (list->current == NULL || list->current == list->head) {
-		// Current node is tail or head => Cannot remove node
-		result = illegalNode;	
-	}
-	else {
-		//1. Keep pointer to node to be deleted.
-		todelete = list->current;
-		//2. Set Successor of prev to successor of node to be deleted.
-		list->current->prev->next = todelete->next;
-		//3. Set Prev of next to prev of node to be deleted.
-		list->current->next->prev = todelete->prev;
-		//4. Set the current node to the previous node
-		list->current = todelete->prev;
-		//5. Free the memory
-		free(todelete);
-	}
-	return result;
-}
-
-/**
-* Returns the data stored inside the current node. Provided it is not the tail.
+* @pre valid double linked list exists
+* @post data of current node is returned 
+* 
+* @details
+* Grabs the 'data' stored in the currently pointed at node.
+* If its a NULL, it returns a NULL.
+* 
+* @param list - A pointer to the 'DoubleLinkedList' 
+* 
+* @return A pointer to the 'data' of the current node, or,
+*		  NULL if current pointer is NULL (invalid)\
+*
+* @note no modification to the structure is done
 */
 data* getData(DoubleLinkedList* list) {
 	// is current tail?
 	if (list->current != NULL) {
-		// no, return data
-		return &(list->current->d);
+		return &(list->current->d); // If current node is valid, return the address of its data
 	}
 	else {
-		// yes, return NULL
-		return NULL;
+		return NULL; // If current pointer = NULL, return NULL
 	}
 }
 
 
 
 /**
-* Changes to the next node in the list
+* @brief Sets the current node to the successor of current
+* 
+* @pre valid double linked lists exists
+* @post if current node is other than tail, current node is set to successor of current node. Otherwise, list remains unchanged.
+* 
+* @details Moves the current pointer to the next node (thats if it exists).
+* If the current node is the tail node (last node), returns an error.
+* 
+* @param list - A pointer to the 'DoubleLinkedList'
+* 
+* @return 'llError' status code:
+* 
+* @note no modification to the structure is done
 */
 llError gotoNextNode(DoubleLinkedList* list) {
-	llError result = ok;
-	// is successor of current tail?
+	llError result = ok; // indicates no errors
+
+	// is successor of current a tail aka. does the next node exist?
 	if (list->current->next != NULL) {
-		// no -> move forward
+		// no -> move current to the next node
 		list->current = list->current->next;
 	}
 	else {
-		// reached end of list, cannot move any further
-		result = illegalNode;
+		// yes -> the current node is the tail so...
+		result = illegalNode; // display an illegal operation
 	}
 	return result;
 }
 
 
 /**
-* Changes to the previous node in the list
+* @brief Sets current node to the predecessor of current
+* 
+* @pre valid double linked list exists
+* @post if current node is other than head, current node is set to predecessor of current node. Otherwise, list remains unchanged.
+* 
+* @details updates the current pointer to previous node.
+* That is if the current node is not the head.
+* If it is, return an error.
+* 
+* @param list - A pointer to the 'DoubleLinkedList'
+* 
+* @return 'llError' status code
+* 
+* @note no modification to the structure is done.
 */
 llError gotoPreviousNode(DoubleLinkedList* list) {
-	llError result = ok;
-	// is current head?
+	llError result = ok; // indicates no errors
+
+	// is the current node a head?
 	if (list->current != list->head) {
-		// no -> move backward
+		// no -> move the current node to the previous node
 			list->current = list->current->prev;
 	}
 	else {
-		// reached end of list, cannot move any further
-		result = illegalNode;
+		// yes -> the current node is the head so...
+		result = illegalNode;	// display an illegal operation
 	}
 	return result;
 }
 
 
 /**
-* Changes current node to the head
+* @brief Sets current node to head
+* 
+* @pre valid double linked list exists
+* @post current node is set to head
+* 
+* @details updates the current pointer to point to the head node.
+* 
+* @param list - A pointer to the 'DoubleLinkedList'
+* 
+* @note no modification to the structure is done.
 */
 void gotoHead(DoubleLinkedList* list) {
-	list->current = list->head;
+	list->current = list->head; // Set the curerent pointer to the head node
 }
 
 
 /**
-* Changes current node to the node just before tail
+* @brief sets the current node to tail
+* 
+* @pre valid double linked list exists.
+* @post current node is set to tail.
+* 
+* @details updates the current pointer to point to last valid node before the tail. Not the tail because its often a placeholder and no further operations can be performed.
+* 
+* @param list - A pointer to the 'DoubleLinkedList'
+* 
+* @note no modifcaiton to the structure is done.
 */
 void gotoTail(DoubleLinkedList* list) {
-	//While loop selects the next node until the last node is selected, which is not the tail, but the node just before it.
-	//If I were to select the tail itself, nothing else could be done, so we'll go with this.
+	// While loop selects the next node until the last valid node (nefore the tail) is selected.
+	// If the tail was selected, nothing else could be done (no further operation could perform)
 	while (list->current->next != NULL) {
-		list->current = list->current->next;
+		list->current = list->current->next; // Move current pointer to the next node
 	}
 }
 
 /**
-* Inserts a new node, with data d, after the current node
+* @brief Creates a new node, associates newdata with it and inserts it after the current node.
+* 
+* @pre valid double linked lists exists and newdata is valid data
+* @post if current node is not tail, new node is inserted after current node. Otherwise list remains unchanged and an error is returned.
+* 
+* @details Inserts a new node into the list right after the current node.
+* Ensures that the new node is connected/linked with its previous and successor node.
+* If the current node is NULL, returns an error.
+* 
+* @param d - A pointer to the 'data' 
+* @param list - A pointer to the 'DoubleLinkedList'
+* 
+* @return 'llError' status code
+* 
+* @note Dynamically allocates memory for the new node.
 */
 llError insertAfter(data* d, DoubleLinkedList* list) {
-	llError returnvalue = ok;
-	Node* newnode;
-	//Can't insert a node after the tail.
+	llError returnvalue = ok; // indicates no errors
+	Node* newnode;			  // temp pointer for new node
+
+	//Can't insert a node after the tail or invalid current pointer.
 	if (list->current == NULL) {
 		returnvalue = illegalNode;
 	}
 	else {
-		// create new node
-		newnode = (Node*)malloc(sizeof(Node));
-		// allocation successful?
+		newnode = (Node*)malloc(sizeof(Node)); // allocates memory for new node
+
+		// is allocation successful?
 		if (newnode == NULL) {
-			// allocation failure
-			returnvalue = noMemory;
+			returnvalue = noMemory; // allocation failure
 		}
 		else {
-			// allocation successful
-			// associate data d with newnode
-			newnode->d = *d;
+			newnode->d = *d; // allocation successful and associate data d with new node
+
 			// link newnode into double linked list
-			// 1. set next of newnode to current nodes's next
+			// 1. set the next of newnode to current node's next
 			newnode->next = list->current->next;
-			//2. Set prev of newnode to current node.
+			// 2. Set the previous pointer of newnode to current node.
 			newnode->prev = list->current;
-			//Step 3 possible only if the next node is not the tail.
+			// 3. possible only if the next node is not the tail.
 			if (list->current->next != NULL) {
-				//3. Set prev of next node to newnode.
+				// 3. Set the previous pointer of next node to newnode.
 				list->current->next->prev = newnode;
 			}
-			// 4. set next of current node to newnode
+			// 4. set next pointer of current node to point to the newnode
 			list->current->next = newnode;
 		}
 	}
@@ -191,41 +278,97 @@ llError insertAfter(data* d, DoubleLinkedList* list) {
 
 
 /**
-* Inserts data before the current node
+* @brief creates a new node, associates newdata with it and inserts it before the current node.
+* 
+* @pre valid double linked list exists and newdata is valid data.
+* @post if current node is not head, new node is inserted before current node. Otherwise list remains unchanged and an error is returned
+* 
+* @details Inserts a new node into the list right before the current node.
+* Ensures that the new node is connected/linked with its previous and successor node.
+* If the current node is NULL, returns an error.
+* 
+* @param d - A pointer to the 'data'
+* @param list - A pointer to the 'DoubleLinkedList'
+* 
+* @return ''llError' status code
+* 
+* @note Dynamically allocates memory for the new node.
 */
 llError insertBefore(data* d, DoubleLinkedList* list) {
-	llError returnvalue = ok;
-	Node* newnode;
-	//Can't insert a node before the head
+	llError returnvalue = ok; // indicates no errors
+	Node* newnode;			  // temp pointer for new node
+
+	// Can't insert a node before the head or invalid current pointer.
 	if (list->current == list->head) {
 		returnvalue = illegalNode;
 	}
 	else {
-		// create new node
-		newnode = (Node*)malloc(sizeof(Node));
-		// allocation successful?
+		newnode = (Node*)malloc(sizeof(Node)); // allocates memory for newnode
+
+		// is allocation successful?
 		if (newnode == NULL) {
-			// allocation failure
-			returnvalue = noMemory;
+			returnvalue = noMemory; // allocation failure
 		}
 		else {
-			// allocation successful
-			// associate data d with newnode
-			newnode->d = *d;
+			newnode->d = *d; // allocation successful and associate data d with newnode
+
 			// link newnode into double linked list
-			// 1. set next of newnode to current node
+			// 1. set the next pointer of newnode to current node
 			newnode->next = list->current;
-			//2. Set prev of newnode to prev of current node
+			//2. Set the previous pointer of newnode to previous node of current node
 			newnode->prev = list->current->prev;
-			// 3. set next of prev of current node to newnode
+			// 3. set the next pointer of the previous node to point to the newnode
 			list->current->prev->next = newnode;
-			// 4. set prev of current node to newnode
+			// 4. set the previous pointer of current node to point to the newnode
 			list->current->prev = newnode;
 		}
 	}
 	return returnvalue;
 }
 
+/**
+* @brief Deletes the current node from list.
+* 
+* @pre valid double linked list exists.
+* @post if current node is other than head or tail, the current node is removed from list. Otherwise, an error is returned.
+* 
+* @details
+* Removes the node currently pointed to.
+* The previous and next nodes are placed together.
+* If the current node is the head or of NULL type, it does nothing and returns an error status.
+* 
+* @param list - A pointer to the 'DoubleLinkedList', thats where the current node is deleted from.
+*
+* @return 'llError' status code
+* 
+* @note cannot delete the head node
+* 
+* @warning after deleting a node, the current pointer is updated to the previous node.
+*/
+llError deleteCurrent(DoubleLinkedList* list) {
+	llError result = ok;	// indicates no errors
+	Node* todelete;			// creates a temp pointer
+
+	if (list->current == NULL || list->current == list->head) {
+		// Cannot delete current node if its NULL or the head
+		result = illegalNode;
+	}
+	else {
+		// 1. Keep the current node to be deleted.
+		todelete = list->current;
+		// 2. Set Successor of previous to successor of node to be deleted.
+		list->current->prev->next = todelete->next;
+		// 3. Set Previous of next to previous of node to be deleted.
+		list->current->next->prev = todelete->prev;
+		// 4. Set the current node to the previous node
+		list->current = todelete->prev;
+		// 5. Free the memory of the deleted node
+		free(todelete);
+	}
+	return result;
+}
+
+/**
 int main() {
 	DoubleLinkedList* list = createDoubleLinkedList();
 	data d1 = { 1, "Sean", "Hello1" };
@@ -262,3 +405,8 @@ int main() {
 	printf("%d\n%d\n%d\n%d\n", d1r->id, d2r->id, d3r->id, d4r->id);
 	deleteDoubleLinkedList(list);
 }
+*/
+
+// —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+// END OF DOUBLELINKEDLISTFUNCTIONS.C

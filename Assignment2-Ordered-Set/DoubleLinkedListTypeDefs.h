@@ -1,40 +1,83 @@
+/** 
+* @file DoubleLinkedListFunctions.h
+* 
+* @brief Defines the data structures and error codes functions for managing and operating the double linked list.
+*
+* @details
+* This file contains the core definitons for list operations using typedef structures and enumertions functions for:
+*  > creating, deleting, and managing a double linked list.
+*  > performing insertion, deletion and moving across a list.
+*  > handling runtime errors.
+*
+* @author Sean Kirk - 23376201
+* @note Coding
+* @author Mihail Bizjajevs - 23364734
+* @note Documentation
+* @date 30/11/2024
+*/
+
 #ifndef DoubleLinkedListTypeDefs_h
 #define DoubleLinkedListTypeDefs_h
 
 /**
-* Defines error codes for linked list
+* @enum llError
+*
+* @brief Enumeration for error codes in Double Linked List Operations.
+*
+* @details Identifies issues during runtime, like;
+* > 'ok': Successful operation, aka. No error.
+* > Errors.
 */
-typedef enum { ok,///> No error
-illegalNode, ///> Attempt to access an illegal node was made
-noMemory ///>Error allocating memory
+typedef enum { ok,		///< Successful operation. No error.
+illegalNode,			///< Invalid node accessed/modified error
+noMemory				///< Failed memory allocation error
 } llError;
 
 
 /**
-* Define structure of the data to be stored in the list
+* @struct data
+* 
+* @brief Defines the user-defined data to be stored in each node in the list
+* 
+* @details contains an ID, a name, and the description.
 */
 typedef struct {
-	int id;           ///< id number of item
-	char name[50];    ///< name of item
-	char description[255]; ///< description of item
+	int id;					///< id number of the item
+	char name[50];			///< name of the item (up to 50 characters/bytes)
+	char description[255];	///< description of the item (up to 255 characters/bytes)
 } data;
+
 /**
-* Define structure of a node
+* @struct Node
+*
+* @brief Represents an element (single node) in the double linked list.
+*
+* @details it has the following;
+* > 'data d' - object to store user info
+* > Pointers
 */
 typedef struct n {
-	data d;
-	struct n* prev;
-	struct n* next;
+	data d;				///< data stored in node
+	struct n* prev;		///< Pointer to previous node in the list.
+	struct n* next;		///< Pointer to the next node in the list.
 } Node;
 
 
 /**
-* Define structure of our Double linked list
+* @struct DoubleLinkedList
+*
+* @brief Represents the entire double linked list.
+*
+* @details It keeps track of the 'head' and 'current' node.
 */
 typedef struct {
-	Node* head;
-	Node* current;
+	Node* head;			///< Pointer to the first node.
+	Node* current;		///< Pointer the the current node.
 } DoubleLinkedList;
 
 
-#endif
+#endif //DoubleLinkedListTypeDefs_h
+
+// —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+// END OF DOUBLELINKEDLISTTYPEDEFS.H
