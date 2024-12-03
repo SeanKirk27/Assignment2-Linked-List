@@ -19,7 +19,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "mainheader.h"
+#include "OrderedList.h"
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_SETS 10 // Maximum number of ordered sets.
 
@@ -32,31 +32,31 @@
  * union, and difference.
  */
 
- // Placeholder functions for the actual operations (to be implemented elsewhere)
+ // Placeholder functions for the actual operations (to be implemented elsewhere) -- ********Commented out******** ******Move the relevant documentation to rory(orderedlist).c********
 
  /**
   * @brief Creates an ordered set at the specified index.
   * @param index Index of the ordered set to be created.
   */
-void createOrderedSet(int index);
+// createOrderedSet(int index);
 
 /**
  * @brief Deletes the ordered set at the specified index.
  * @param index Index of the ordered set to be deleted.
  */
-void deleteOrderedSet(int index);
+//void deleteOrderedSet(int index);
 
 /**
  * @brief Adds elements to the ordered set at the specified index.
  * @param index Index of the ordered set to add elements to.
  */
-void addElementsToSet(int index);
+//void addElementsToSet(int index);
 
 /**
  * @brief Removes elements from the ordered set at the specified index.
  * @param index Index of the ordered set to remove elements from.
  */
-void removeElementsFromSet(int index);
+//void removeElementsFromSet(int index);
 
 /**
  * @brief Computes the intersection of two sets and stores the result in a third set.
@@ -64,7 +64,7 @@ void removeElementsFromSet(int index);
  * @param i2 Index of the second input set.
  * @param i3 Index of the set to store the intersection result.
  */
-void setIntersection(int i1, int i2, int i3);
+//void setIntersection(int i1, int i2, int i3);
 
 /**
  * @brief Computes the union of two sets and stores the result in a third set.
@@ -72,7 +72,7 @@ void setIntersection(int i1, int i2, int i3);
  * @param i2 Index of the second input set.
  * @param i3 Index of the set to store the union result.
  */
-void setUnion(int i1, int i2, int i3);
+//void setUnion(int i1, int i2, int i3);
 
 /**
  * @brief Computes the difference of two sets and stores the result in a third set.
@@ -80,7 +80,9 @@ void setUnion(int i1, int i2, int i3);
  * @param i2 Index of the second input set.
  * @param i3 Index of the set to store the difference result.
  */
-void setDifference(int i1, int i2, int i3);
+//void setDifference(int i1, int i2, int i3);
+
+
 
 /**
  * @brief Displays the menu options for the user.

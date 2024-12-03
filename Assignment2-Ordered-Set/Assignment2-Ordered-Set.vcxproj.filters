@@ -32,9 +32,6 @@
     <ClInclude Include="DoubleLinkedListTypeDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mainheader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="OrderedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
