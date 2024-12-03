@@ -131,6 +131,7 @@
     <ClCompile Include="DoubleLinkedListFunctions.c" />
     <ClCompile Include="DoubleLinkedListTypeDefs.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="rory(orderedlist).c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DoubleLinkedListFunctions.h" />
