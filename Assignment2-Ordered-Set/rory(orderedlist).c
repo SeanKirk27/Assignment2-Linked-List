@@ -174,7 +174,7 @@ orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
         if (addElement(unionResult, currentElement->data) == ALLOCATION_ERROR) {
             deleteOrderedSet(unionResult);
             return NULL;
-        };k
+        };
 
         currentElement = currentElement->next;
     }
