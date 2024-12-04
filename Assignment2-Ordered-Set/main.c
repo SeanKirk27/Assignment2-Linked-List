@@ -325,7 +325,7 @@ int main() {
             break;
         }
 
-        case 8: { // Print Ordered Set
+      /*  case 9: { // Print Ordered Set
             int index;
             printf("Enter index (0-9) of the Ordered Set to print: ");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
@@ -342,8 +342,8 @@ int main() {
             }
             break;
         }
-
-        case 9: // Exit
+        The assignment doesn't call for this case. -Sean*/
+        case 8: // Exit
             printf("Terminating program.\n");
             for (int i = 0; i < MAX_SETS; i++) {
                 if (sets[i] != NULL) {
@@ -356,7 +356,7 @@ int main() {
             printf("Invalid choice. Please try again.\n");
             while (getchar() != '\n'); // Clear input buffer
         }
-    } while (choice != 9);
+    } while (choice != 8);
 
     return 0;
 }
