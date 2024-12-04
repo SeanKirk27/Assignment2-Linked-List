@@ -28,9 +28,8 @@ ReturnValues deleteOrderedSet(orderedIntSet *s) {
 
     while (currentElement != NULL) {
         temp = currentElement;
-        free(temp);
-
         currentElement = currentElement->next;
+        free(temp);
     }
 
     free(s);
