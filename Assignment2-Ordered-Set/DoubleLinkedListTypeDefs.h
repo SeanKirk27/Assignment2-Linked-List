@@ -39,12 +39,10 @@ noMemory				///< Failed memory allocation error
 * 
 * @brief Defines the user-defined data to be stored in each node in the list
 * 
-* @details contains an ID, a name, and the description.
+* @details Contains 1 integer, i
 */
 typedef struct {
-	int id;					///< id number of the item
-	char name[50];			///< name of the item (up to 50 characters/bytes)
-	char description[255];	///< description of the item (up to 255 characters/bytes)
+	int i;			
 } data;
 
 /**
