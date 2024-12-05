@@ -26,10 +26,10 @@
 
  // Placeholder functions for the actual operations (to be implemented elsewhere) -- ********Commented out******** ******Move the relevant documentation to OrderedListFunction.c********
 
- /**
-  * @brief Creates an ordered set at the specified index.
-  * @param index Index of the ordered set to be created.
-  */
+/**
+ * @brief Creates an ordered set at the specified index.
+ * @param index Index of the ordered set to be created.
+ */
 // createOrderedSet(int index);
 
 /**
@@ -326,24 +326,6 @@ int main() {
             printToStdout(sets[i3]);
             break;
         }
-
-      /*  case 9: { // Print Ordered Set. The assignment doesn't call for this case. -Sean
-            int index;
-            printf("Enter index (0-9) of the Ordered Set to print: ");
-            if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
-                printf("Invalid index. Must be between 0 and 9.\n");
-                while (getchar() != '\n'); // Clear input buffer
-                break;
-            }
-
-            if (sets[index] == NULL) {
-                printf("No set exists at index %d.\n", index);
-            }
-            else {
-                printToStdout(sets[index]);
-            }
-            break;
-        } */
 
         case 8: // Exit
             printf("Terminating program.\n");
