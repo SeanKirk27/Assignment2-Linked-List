@@ -207,7 +207,7 @@ int main() {
 
         case 4: { // Remove Element from Set
             int index;
-            int elem =0;
+            int elem = 0;
             printf("Enter index (0-9) to remove elements from an Ordered Set:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
@@ -256,12 +256,18 @@ int main() {
                 while (getchar() != '\n'); // Clear input buffer
                 break;
             }
-
-            if (sets[i1] == NULL || sets[i2] == NULL) {
-                printf("One or both sets do not exist.\n");
+            if (sets[i1] = NULL && sets[i2] == NULL) {
+                printf("No ordered set available at index %d or index %d Intersection cannot be found.\n", i1, i2);
                 break;
             }
-
+            else if (sets[i1] == NULL) {
+                printf("No set available at index %d. Intersection cannot be found\n", i1);
+                break;
+            }
+            else if (sets[i2] == NULL) {
+                printf("No set available at index %d. Intersection cannot be found\n", i2);
+                break;
+            }
             if (sets[i3] != NULL) {
                 deleteOrderedSet(sets[i3]); // Clear the existing set
             }
@@ -289,20 +295,27 @@ int main() {
                 break;
             }
 
-            if (sets[i1] == NULL || sets[i2] == NULL) {
-                printf("One or both sets do not exist.\n");
+            if (sets[i1] = NULL && sets[i2] == NULL) {
+                printf("No ordered set available at index %d or index %d. Union cannot be found.\n", i1, i2);
                 break;
             }
-
-            if (sets[i3] != NULL) {
-                deleteOrderedSet(sets[i3]); // Clear the existing set
+            else if (sets[i1] == NULL) {
+                printf("No set available at index %d. Union cannot be found\n", i1);
+                break;
             }
+            else if (sets[i2] == NULL) {
+                printf("No set available at index %d. Union cannot be found\n", i2);
+                break;
 
-            sets[i3] = setUnion(sets[i1], sets[i2]);
-            printf("Set Union stored at index %d.\n", i3);
-            printToStdout(sets[i3]);
-            break;
-        }
+                if (sets[i3] != NULL) {
+                    deleteOrderedSet(sets[i3]); // Clear the existing set
+                }
+
+                sets[i3] = setUnion(sets[i1], sets[i2]);
+                printf("Set Union stored at index %d.\n", i3);
+                printToStdout(sets[i3]);
+                break;
+            }
 
         case 7: { // Set Difference
             int i1, i2, i3;
@@ -321,8 +334,16 @@ int main() {
                 break;
             }
 
-            if (sets[i1] == NULL || sets[i2] == NULL) {
-                printf("One or both sets do not exist.\n");
+            if (sets[i1] = NULL && sets[i2] == NULL) {
+                printf("No ordered set available at index %d or index %d Difference cannot be found.\n", i1, i2);
+                break;
+            }
+            else if (sets[i1] == NULL) {
+                printf("No set available at index %d. Difference cannot be found\n", i1);
+                break;
+            }
+            else if (sets[i2] == NULL) {
+                printf("No set available at index %d. Difference cannot be found\n", i2);
                 break;
             }
 
@@ -335,24 +356,6 @@ int main() {
             printToStdout(sets[i3]);
             break;
         }
-
-      /*  case 9: { // Print Ordered Set. The assignment doesn't call for this case. -Sean
-            int index;
-            printf("Enter index (0-9) of the Ordered Set to print: ");
-            if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
-                printf("Invalid index. Must be between 0 and 9.\n");
-                while (getchar() != '\n'); // Clear input buffer
-                break;
-            }
-
-            if (sets[index] == NULL) {
-                printf("No set exists at index %d.\n", index);
-            }
-            else {
-                printToStdout(sets[index]);
-            }
-            break;
-        } */
 
         case 8: // Exit
             printf("Terminating program.\n");
@@ -367,7 +370,8 @@ int main() {
             printf("Invalid choice. Please try again.\n");
             while (getchar() != '\n'); // Clear input buffer
         }
-    } while (choice != 8);
+        }
+        } while (choice != 8);
 
-    return 0;
-}
+        return 0;
+    }

@@ -139,7 +139,7 @@ orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
 
         if (addElement(unionResult, s2Data) == ALLOCATION_ERROR) {
             deleteOrderedSet(unionResult);
-            return NULL;
+			return NULL;
         }
 
         gotoNextNode(s2->list);
