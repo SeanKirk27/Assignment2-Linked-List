@@ -7,14 +7,15 @@
 *  > Creating/deleting in the double linked list.
 *  > Inserting, deleting and getting nodes.
 *  > Moving to the next or previous node in the list.
-*
-* @note 
+* 
 *
 * @author Sean Kirk - 23376201
 * @note Coding
 * @author Mihail Bizjajevs - 23364734
 * @note Documentation
 * @date 30/11/2024
+* 
+* @note Additional group members include: Ali Farah (23380098), Rory Huynh (23374624), Joseph Ennis (23360798)  
 */
 
 #include "DoubleLinkedListTypeDefs.h"
@@ -377,46 +378,6 @@ llError deleteCurrent(DoubleLinkedList* list) {
 	}
 	return result;
 }
-
-/**
-int main() {
-	DoubleLinkedList* list = createDoubleLinkedList();
-	data d1 = { 1, "Sean", "Hello1" };
-	data d2 ={ 2, "", "Hello2" };
-	data d3 = { 3, "Sean", "Hello3" };
-	data d4 = { 4, "Sean", "Hello4" };
-
-	data* d1r = (data*)malloc(sizeof(data));
-	data* d2r = (data*)malloc(sizeof(data));
-	data* d3r = (data*)malloc(sizeof(data));
-	data* d4r = (data*)malloc(sizeof(data));
-
-	insertAfter(&d1, list);
-	gotoNextNode(list);
-	insertBefore(&d2, list);
-	gotoPreviousNode(list);
-	insertBefore(&d3, list);
-	gotoPreviousNode(list);
-	insertBefore(&d4, list);
-	
-	gotoHead(list);
-	gotoNextNode(list);
-	 d1r = getData(list);
-	gotoNextNode(list);
-
-	 d2r = getData(list);
-	gotoNextNode(list);
-
-	 d3r = getData(list);
-	gotoNextNode(list);
-
-	 d4r = getData(list);
-	gotoNextNode(list);
-	printf("%d\n%d\n%d\n%d\n", d1r->id, d2r->id, d3r->id, d4r->id);
-	deleteDoubleLinkedList(list);
-}
-*/
-
 // —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 // END OF DOUBLELINKEDLISTFUNCTIONS.C

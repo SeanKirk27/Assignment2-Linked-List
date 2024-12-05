@@ -1,21 +1,22 @@
 /**
- * @file OrderedListFunctions.c
- *
- * @brief Implementation of functions for managing/operating on an ordered integer set.
- *
- * @details This file provides the implementation for:
- *   > Creating and deleting ordered sets.
- *   > Adding, removing, and searching elements.
- *   > Performing set operations such as union, intersection, and difference.
- *   > Printing set contents.
- *
-* @note
+* @file OrderedListFunctions.c
+*
+* @brief Implementation of functions for managing/operating on an ordered integer set.
+*
+* @details This file provides the implementation for:
+*   > Creating and deleting ordered sets.
+*   > Adding, removing, and searching elements.
+*   > Performing set operations such as union, intersection, and difference.
+*   > Printing set contents.
+*
 *
 * @author Rory Huynh - 23374624
 * @note Coding
 * @author Joseph Ennis - 23360798
 * @note Documentation
 * @date 05/12/2024
+* 
+* @note Additional group members include: Ali Farah (23380098), Sean Kirk (23376201), Mihail Bizjajevs (23364734)
 */
 
 #include <stdio.h>

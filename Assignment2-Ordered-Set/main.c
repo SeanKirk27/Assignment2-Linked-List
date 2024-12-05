@@ -1,17 +1,19 @@
 /**
+* 
 * @file main.c
 * 
-* @brief ...
+* @brief A menu-driven program for managing ordered sets.
 * 
 * @details
+* > This program provides operations to create, delete, add, and remove elements from ordered sets. Additionally, it includes set operations such as intersection,union, and difference.
 * 
 * @notes
 * This project work load was split as follows:
 * Sean Kirk (23376201) - Coded the data Structure - Double Linked List section and their header files.
 * Mihail Bizjajevs (23364734) - Documented (doxygen, comments, etc.) Sean Kirk's files.
 * Rory Huynh (23374624) - Coded the Data Type Ordered Set section and their header files.
-* Joseph Ennis (23360798) - Documented (doxygen, comments, etc.) Rory Huynh's fies.
-* Ali Farah (23380098) - Coded and Documented the Test Program main file
+* Joseph Ennis (23360798) - Documented (doxygen, comments, etc.) Rory Huynh's files.
+* Ali Farah (23380098) - Coded and Documented the Test Program main file.
 * 
 * @author Ali Farah - 23380098
 * @date 30/11/2024
@@ -23,17 +25,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define MAX_SETS 10 // Maximum number of ordered sets.
 
-
-/**
- * @file main.c
- * @brief A menu-driven program for managing ordered sets.
- *
- * This program provides operations to create, delete, add, and remove elements
- * from ordered sets. Additionally, it includes set operations such as intersection,
- * union, and difference.
- */
-
- // Placeholder functions for the actual operations (to be implemented elsewhere) -- ********Commented out******** ******Move the relevant documentation to rory(orderedlist).c********
+ // Placeholder functions for the actual operations (to be implemented elsewhere) -- ********Commented out******** ******Move the relevant documentation to OrderedListFunction.c********
 
  /**
   * @brief Creates an ordered set at the specified index.
@@ -371,3 +363,6 @@ int main() {
 
     return 0;
 }
+// —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+// END OF MAIN.C
