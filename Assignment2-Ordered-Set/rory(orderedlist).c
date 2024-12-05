@@ -1,7 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "OrderedList.h"
-
+/**
+ * @brief Creates an empty ordered integer set.
+ *
+ * Allocates memory for an orderedIntSet structure and initializes it.
+ *
+ * @return Pointer to the newly created orderedIntSet, or exits on allocation failure.
+ */
 orderedIntSet *createOrderedSet() {
     orderedIntSet *returnSet = (orderedIntSet *) malloc(sizeof(orderedIntSet));
 
@@ -15,7 +21,14 @@ orderedIntSet *createOrderedSet() {
 
     return returnSet;
 }
-
+/**
+ * @brief Deletes an ordered integer set and frees memory.
+ *
+ * Frees memory associated with the set's list and the set itself.
+ *
+ * @param s Pointer to the orderedIntSet to delete.
+ * @return ReturnValues indicating success or error type.
+ */
 ReturnValues deleteOrderedSet(orderedIntSet *s) {
     if (s == NULL) {
         return ALLOCATION_ERROR;
@@ -26,7 +39,15 @@ ReturnValues deleteOrderedSet(orderedIntSet *s) {
 
     return NUMBER_REMOVED;
 }
-
+/**
+ * @brief Adds an element to the ordered set.
+ *
+ * Inserts an integer into the set while maintaining the order.
+ *
+ * @param s Pointer to the orderedIntSet.
+ * @param elem The integer to add.
+ * @return ReturnValues indicating success or error type.
+ */
 ReturnValues addElement(orderedIntSet *s, int elem) {
     if (s == NULL) {
         return ALLOCATION_ERROR;
@@ -54,7 +75,15 @@ ReturnValues addElement(orderedIntSet *s, int elem) {
 
     return NUMBER_ADDED;
 }
-
+/**
+ * @brief Removes an element from the ordered set.
+ *
+ * Deletes a specified integer from the set if it exists.
+ *
+ * @param s Pointer to the orderedIntSet.
+ * @param elem The integer to remove.
+ * @return ReturnValues indicating success or error type.
+ */
 ReturnValues removeElement(orderedIntSet *s, int elem) {
     if (s == NULL) {
         return ALLOCATION_ERROR;
@@ -78,7 +107,15 @@ ReturnValues removeElement(orderedIntSet *s, int elem) {
 
 
 
-
+/**
+ * @brief Computes the intersection of two ordered sets.
+ *
+ * Returns a new set containing elements common to both input sets.
+ *
+ * @param s1 Pointer to the first orderedIntSet.
+ * @param s2 Pointer to the second orderedIntSet.
+ * @return Pointer to the new orderedIntSet containing the intersection.
+ */
 orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
         return NULL;
@@ -112,7 +149,15 @@ orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
 
     return intersectionResult;
 }
-
+/**
+ * @brief Computes the union of two ordered sets.
+ *
+ * Returns a new set containing all unique elements from both input sets.
+ *
+ * @param s1 Pointer to the first orderedIntSet.
+ * @param s2 Pointer to the second orderedIntSet.
+ * @return Pointer to the new orderedIntSet containing the union.
+ */
 orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
         return NULL;
@@ -147,7 +192,15 @@ orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
 
     return unionResult;
 }
-
+/**
+ * @brief Computes the difference of two ordered sets.
+ *
+ * Returns a new set containing elements in the first set that are not in the second.
+ *
+ * @param s1 Pointer to the first orderedIntSet.
+ * @param s2 Pointer to the second orderedIntSet.
+ * @return Pointer to the new orderedIntSet containing the difference.
+ */
 orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
         return NULL;
@@ -184,7 +237,14 @@ orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
 
     return differenceResult;
 }
-
+/**
+ * @brief Prints the elements of an ordered set to the standard output.
+ *
+ * Displays the set in the format {elem1, elem2, ...}.
+ *
+ * @param s Pointer to the orderedIntSet.
+ * @return 0 on success.
+ */
 int printToStdout(orderedIntSet* s) {
     if (s == NULL) {
         printf("{}\n");
