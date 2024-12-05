@@ -8,11 +8,11 @@
 * 
 * @note
 * This project work load was split as follows:
-* Sean Kirk (23376201) - Coded the data Structure - Double Linked List section and their header files.
-* Mihail Bizjajevs (23364734) - Documented (doxygen, comments, etc.) Sean Kirk's files.
-* Rory Huynh (23374624) - Coded the Data Type Ordered Set section and their header files.
-* Joseph Ennis (23360798) - Documented (doxygen, comments, etc.) Rory Huynh's files.
-* Ali Farah (23380098) - Coded and Documented the Test Program main file.
+* - Sean Kirk (23376201) - Coded the data Structure - Double Linked List section and their header files.
+* - Mihail Bizjajevs (23364734) - Documented (doxygen, comments, etc.) Sean Kirk's files.
+* - Rory Huynh (23374624) - Coded the Data Type Ordered Set section and their header files.
+* - Joseph Ennis (23360798) - Documented (doxygen, comments, etc.) Rory Huynh's files.
+* - Ali Farah (23380098) - Coded and Documented the Test Program main file.
 * 
 * @author Ali Farah - 23380098
 * @date 05/12/2024
