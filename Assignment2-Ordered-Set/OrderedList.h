@@ -1,7 +1,7 @@
 /**
  * @file OrderedList.h
  *
- * @brief Header file for defining the `orderedIntSet` structure and its associated operations.
+ * @brief Header file for defining the Ordered lists structure and its associated operations.
  *
  * @details
  * This header file contains declarations for managing ordered sets of integers using a double-linked list
