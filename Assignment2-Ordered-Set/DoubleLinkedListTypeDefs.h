@@ -13,7 +13,9 @@
 * @note Coding
 * @author Mihail Bizjajevs - 23364734
 * @note Documentation
-* @date 30/11/2024
+* @date 04/12/2024
+* 
+* @note Additional group members include: Ali Farah (23380098), Rory Huynh (23374624), Joseph Ennis (23360798)  
 */
 
 #ifndef DoubleLinkedListTypeDefs_h
@@ -54,7 +56,7 @@ typedef struct {
 * > 'data d' - object to store user info
 * > Pointers
 */
-typedef struct n {
+typedef struct n {		// dummy name (n) before declaring Node name
 	data d;				///< data stored in node
 	struct n* prev;		///< Pointer to previous node in the list.
 	struct n* next;		///< Pointer to the next node in the list.

@@ -12,7 +12,9 @@
 * @note Coding
 * @author Mihail Bizjajevs - 23364734
 * @note Documentation
-* @date 30/11/2024
+* @date 04/12/2024
+* 
+* @note Additional group members include: Ali Farah (23380098), Rory Huynh (23374624), Joseph Ennis (23360798)  
 */
 
 #ifndef DoubleLinkedListFunctions_h
@@ -31,6 +33,6 @@ llError deleteCurrent(DoubleLinkedList* list);
 
 #endif //DoubleLinkedListFunctions_h
 
-// —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+// ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 // END OF DOUBLELINKEDLISTFUNCTIONS.H
