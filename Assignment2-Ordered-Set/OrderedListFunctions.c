@@ -1,22 +1,22 @@
 /**
-* @file OrderedListFunctions.c
-*
-* @brief Implementation of functions for managing/operating on an ordered integer set.
-*
-* @details This file provides the implementation for:
-*   > Creating and deleting ordered sets.
-*   > Adding, removing, and searching elements.
-*   > Performing set operations such as union, intersection, and difference.
-*   > Printing set contents.
-*
-*
-* @author Rory Huynh - 23374624
-* @note Coding
-* @author Joseph Ennis - 23360798
-* @note Documentation
-* @date 05/12/2024
-* 
-* @note Additional group members include: Ali Farah (23380098), Sean Kirk (23376201), Mihail Bizjajevs (23364734)
+ * @file OrderedListFunctions.c
+ *
+ * @brief Implementation of functions for managing/operating on an ordered integer set.
+ *
+ * @details This file provides the implementation for:
+ *   > Creating and deleting ordered sets.
+ *   > Adding, removing, and searching elements.
+ *   > Performing set operations such as union, intersection, and difference.
+ *   > Printing set contents.
+ *
+ *
+ * @author Rory Huynh - 23374624
+ * @note Coding
+ * @author Joseph Ennis - 23360798
+ * @note Documentation
+ * @date 05/12/2024
+ * 
+ * @note Additional group members include: Ali Farah (23380098), Sean Kirk (23376201), Mihail Bizjajevs (23364734)
 */
 
 #include <stdio.h>
@@ -43,7 +43,7 @@
  * 4. Return `orderedIntSet`
  * 
  * @return A pointer to the newly created ordered set, or exits the program on allocation failure.
- */
+*/
 orderedIntSet *createOrderedSet() {
     orderedIntSet *returnSet = (orderedIntSet *) malloc(sizeof(orderedIntSet));
     // Check if memory allocation failed
@@ -81,7 +81,7 @@ orderedIntSet *createOrderedSet() {
  * @param s A pointer to the `orderedIntSet` to be deleted.
  *
  * @return `ALLOCATION_ERROR` if `s` is NULL, otherwise `NUMBER_REMOVED`.
- */
+*/
 ReturnValues deleteOrderedSet(orderedIntSet *s) {
     // Check if the input set pointer is NULL
     if (s == NULL) {
@@ -123,7 +123,7 @@ ReturnValues deleteOrderedSet(orderedIntSet *s) {
  * @param elem The integer element to be added.
  *
  * @return `NUMBER_ADDED` if successful, `NUMBER_ALREADY_IN_SET` if `elem` exists, or `ALLOCATION_ERROR` on failure.
- */
+*/
 ReturnValues addElement(orderedIntSet *s, int elem) {
     // Check if the input set pointer is NULL
     if (s == NULL) {
@@ -186,7 +186,7 @@ ReturnValues addElement(orderedIntSet *s, int elem) {
  * @param elem The integer element to be removed.
  *
  * @return `NUMBER_REMOVED` if `elem` was removed, `NUMBER_NOT_IN_SET` if not found, or `ALLOCATION_ERROR` on failure.
- */
+*/
 ReturnValues removeElement(orderedIntSet *s, int elem) {
     // Check if the input set pointer is NULL
     if (s == NULL) {
@@ -236,7 +236,7 @@ ReturnValues removeElement(orderedIntSet *s, int elem) {
  * @param s2 A pointer to the second `orderedIntSet`.
  *
  * @return A pointer to the resulting set, or `NULL` on failure.
- */
+*/
 orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
     // Check if either input set pointer is NULL
     if (s1 == NULL || s2 == NULL) {
@@ -307,7 +307,7 @@ orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
  *         Returns NULL if both input sets are NULL.
  *
  * @note Memory allocation is performed for the new set. The caller is responsible for freeing this memory.
- */
+*/
 orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
     // Check if either input set pointer is NULL
     if (s1 == NULL || s2 == NULL) {
@@ -377,7 +377,7 @@ orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
  *         Returns NULL if `s1` is NULL. If `s2` is NULL, the result is a copy of `s1`.
  *
  * @note Memory allocation is performed for the new set. The caller is responsible for freeing this memory.
- */
+*/
 orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
     // Check if either input set pointer is NULL
     if (s1 == NULL || s2 == NULL) {
@@ -448,7 +448,7 @@ orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
  * @return The number of elements in the set.
  * 
  * @note This function does not modify the structure of the set.
- */
+*/
 int printToStdout(orderedIntSet* s) {
     // Check if the input set pointer is NULL
     if (s == NULL) {
