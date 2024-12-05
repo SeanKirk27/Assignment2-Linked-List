@@ -83,6 +83,9 @@ orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
         return NULL;
     }
+    else if (s1 == s2) {
+        return s1;
+    }
 
     orderedIntSet *intersectionResult = createOrderedSet();
     

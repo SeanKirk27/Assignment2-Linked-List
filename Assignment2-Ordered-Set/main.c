@@ -130,7 +130,7 @@ int main() {
         switch (choice) {
         case 1: { // Create Ordered Set
             int index;
-            printf("Enter index (0-9) to create an Ordered Set: ");
+            printf("Enter index (0-9) to create an Ordered Set:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
@@ -149,7 +149,7 @@ int main() {
 
         case 2: { // Delete Ordered Set
             int index;
-            printf("Enter index (0-9) to delete an Ordered Set: ");
+            printf("Enter index (0-9) to delete an Ordered Set:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
@@ -170,7 +170,7 @@ int main() {
         case 3: { // Add Element to Set
             int index;
             int elem = 0;
-            printf("Enter index (0-9) to add elements to an Ordered Set, a negative number will stop the process.: ");
+            printf("Enter index (0-9) to add elements to an Ordered Set, a negative number will stop the process.:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
@@ -184,7 +184,7 @@ int main() {
             while (elem >= 0) {
                 printf("Enter element to add, or a negative number to stop: ");
                 if (scanf_s("%d", &elem) != 1) {
-                    printf("Invalid input. Please enter an integer.\n");
+                    printf("Invalid input. Please enter an integer. If a decimal number was added, it was cut down to an integer.\n");
                     while (getchar() != '\n'); // Clear input buffer
                     continue;
                 }
@@ -200,7 +200,6 @@ int main() {
                         printf("Error adding element to the set.\n");
                     }
                 }
-                while (getchar() != '\n'); // Clear input buffer
             }
             printToStdout(sets[index]);
             break;
@@ -209,7 +208,7 @@ int main() {
         case 4: { // Remove Element from Set
             int index;
             int elem =0;
-            printf("Enter index (0-9) to remove elements from an Ordered Set: ");
+            printf("Enter index (0-9) to remove elements from an Ordered Set:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
@@ -236,7 +235,6 @@ int main() {
                         printf("Element %d not found in the set.\n", elem);
                     }
                 }
-                while (getchar() != '\n'); // Clear input buffer
             }
             printToStdout(sets[index]);
             break;
@@ -244,7 +242,7 @@ int main() {
 
         case 5: { // Set Intersection
             int i1, i2, i3;
-            printf("Enter two indices for Set Intersection (i1, i2): ");
+            printf("Enter two indices for Set Intersection (i1, i2):\n");
             if (scanf_s("%d %d", &i1, &i2) != 2 ||
                 i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS) {
                 printf("Invalid indices. Must be between 0 and 9.\n");
@@ -252,7 +250,7 @@ int main() {
                 break;
             }
 
-            printf("Enter index to store the result (i3): ");
+            printf("Enter index to store the result (i3):\n");
             if (scanf_s("%d", &i3) != 1 || i3 < 0 || i3 >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
@@ -276,7 +274,7 @@ int main() {
 
         case 6: { // Set Union
             int i1, i2, i3;
-            printf("Enter two indices for Set Union (i1, i2): ");
+            printf("Enter two indices for Set Union (i1, i2):\n");
             if (scanf_s("%d %d", &i1, &i2) != 2 ||
                 i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS) {
                 printf("Invalid indices. Must be between 0 and 9.\n");
@@ -284,7 +282,7 @@ int main() {
                 break;
             }
 
-            printf("Enter index to store the result (i3): ");
+            printf("Enter index to store the result (i3):\n");
             if (scanf_s("%d", &i3) != 1 || i3 < 0 || i3 >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
@@ -308,7 +306,7 @@ int main() {
 
         case 7: { // Set Difference
             int i1, i2, i3;
-            printf("Enter two indices for Set Difference (i1, i2): ");
+            printf("Enter two indices for Set Difference (i1, i2):\n");
             if (scanf_s("%d %d", &i1, &i2) != 2 ||
                 i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS) {
                 printf("Invalid indices. Must be between 0 and 9.\n");
@@ -316,7 +314,7 @@ int main() {
                 break;
             }
 
-            printf("Enter index to store the result (i3): ");
+            printf("Enter index to store the result (i3):\n");
             if (scanf_s("%d", &i3) != 1 || i3 < 0 || i3 >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
