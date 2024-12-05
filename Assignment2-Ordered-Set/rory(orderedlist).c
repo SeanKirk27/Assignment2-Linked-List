@@ -1,20 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "OrderedList.h"
-
-
 
 orderedIntSet *createOrderedSet() {
     orderedIntSet *returnSet = (orderedIntSet *) malloc(sizeof(orderedIntSet));
-    
+
     if (returnSet == NULL) {
         printf("[ERROR] Could not allocate heap memory when creating ordered set. Exiting...\n");
         exit(-1);
     }
 
     returnSet->size = 0;
-    returnSet->head = NULL;
-    
+    returnSet->list = createDoubleLinkedList();
+
     return returnSet;
 }
 
@@ -22,227 +19,186 @@ ReturnValues deleteOrderedSet(orderedIntSet *s) {
     if (s == NULL) {
         return ALLOCATION_ERROR;
     }
-    
-    Node *currentElement = s->head;
-    Node *temp;
 
-    while (currentElement != NULL) {
-        temp = currentElement;
-        currentElement = currentElement->next;
-        free(temp);
-    }
-
+    deleteDoubleLinkedList(s->list);
     free(s);
 
     return NUMBER_REMOVED;
 }
 
 ReturnValues addElement(orderedIntSet *s, int elem) {
-    Node *currentElement = s->head;
-    Node *newNode;
-
-    while (currentElement != NULL) {
-        if (currentElement->data == elem) {
-            return NUMBER_ALREADY_IN_SET;
-        }
-        currentElement = currentElement->next;
-    }
-
-    newNode = (Node *)malloc(sizeof(Node));
-    if (newNode == NULL) {
+    if (s == NULL) {
         return ALLOCATION_ERROR;
     }
-    newNode->data = elem;
 
-    if (s->head == NULL) {
-        newNode->prev = NULL;
-        newNode->next = NULL;
-        s->head = newNode;
-        s->size++;
+    gotoHead(s->list);
+    while (s->list->current->next != NULL) {
+        int currentElement = s->list->current->next->d.i;
 
-        return NUMBER_ADDED;
-    }
-
-    currentElement = s->head;
-
-    if (elem < currentElement->data) {
-        newNode->prev = NULL;
-        newNode->next = currentElement;
-        currentElement->prev = newNode;
-        s->head = newNode;
-        s->size++;
-
-        return NUMBER_ADDED;
-    }
-
-    while (currentElement->next != NULL) {
-        if (currentElement->data < elem && elem < currentElement->next->data) {
-            newNode->prev = currentElement;
-            newNode->next = currentElement->next;
-            currentElement->next->prev = newNode;
-            currentElement->next = newNode;
-            s->size++;
-
-            return NUMBER_ADDED;
+        if (currentElement == elem) {
+            return NUMBER_ALREADY_IN_SET;
+        } else if (currentElement > elem) {
+            break;
         }
-        currentElement = currentElement->next;
+
+        gotoNextNode(s->list);
     }
 
-    newNode->prev = currentElement;
-    newNode->next = NULL;
-    currentElement->next = newNode;
+    data newData = {elem};
+    if (insertAfter(&newData, s->list) != ok) {
+        return ALLOCATION_ERROR;
+    }
+
     s->size++;
 
     return NUMBER_ADDED;
 }
 
 ReturnValues removeElement(orderedIntSet *s, int elem) {
-    Node *currentElement = s->head;
-
-    if (s->head == NULL) {
-        return NUMBER_NOT_IN_SET;
+    if (s == NULL) {
+        return ALLOCATION_ERROR;
     }
 
-    while (currentElement != NULL) {
-        if (currentElement->data == elem) {
+    gotoHead(s->list);
+    while (s->list->current->next != NULL) {
+        int currentData = s->list->current->next->d.i;
 
-            if (currentElement == s->head) {
-                s->head = currentElement->next;
-                
-                if (s->head != NULL) {
-                    s->head->prev = NULL;
-                }
-            } else if (currentElement->next == NULL) {
-                currentElement->prev->next = NULL;
-            } else {
-                currentElement->prev->next = currentElement->next;
-                currentElement->next->prev = currentElement->prev;
+        if (currentData == elem) {
+            if (deleteCurrent(s->list) != ok) {
+                return ALLOCATION_ERROR;
             }
-
             s->size--;
-            free(currentElement);
-
             return NUMBER_REMOVED;
         }
 
-        currentElement = currentElement->next;
+        gotoNextNode(s->list);
     }
 
     return NUMBER_NOT_IN_SET;
 }
 
+
+
+
 orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
-    if ((s1 == NULL) || (s2 == NULL)) {
+    if (s1 == NULL || s2 == NULL) {
         return NULL;
     }
 
-    Node *s1CurrentElement = s1->head;
-    Node *s2CurrentElement = s2->head;
-    
     orderedIntSet *intersectionResult = createOrderedSet();
+    
+    gotoHead(s1->list);
+    while (s1->list->current->next != NULL) {
+        int s1Data = s1->list->current->next->d.i;
 
-    while (s1CurrentElement != NULL) {
-        s2CurrentElement = s2->head;
+        gotoHead(s2->list);
+        while (s2->list->current->next != NULL) {
+            int s2Data = s2->list->current->next->d.i;
 
-        while (s2CurrentElement != NULL) {
-            if (s1CurrentElement->data == s2CurrentElement->data) {
-                if (addElement(intersectionResult, s1CurrentElement->data) == ALLOCATION_ERROR) {
+            if (s1Data == s2Data) {
+                if (addElement(intersectionResult, s1Data) == ALLOCATION_ERROR) {
                     deleteOrderedSet(intersectionResult);
+
                     return NULL;
-                };
+                }
             }
 
-            s2CurrentElement = s2CurrentElement->next;
+            gotoNextNode(s2->list);
         }
-
-        s1CurrentElement = s1CurrentElement->next;
+        gotoNextNode(s1->list);
     }
 
     return intersectionResult;
 }
 
 orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
-    if ((s1 == NULL) || (s2 == NULL)) {
+    if (s1 == NULL || s2 == NULL) {
         return NULL;
     }
 
     orderedIntSet *unionResult = createOrderedSet();
-    Node *currentElement = s1->head;
 
-    while (currentElement != NULL) {
-        if (addElement(unionResult, currentElement->data) == ALLOCATION_ERROR) {
+    gotoHead(s1->list);
+    while (s1->list->current->next != NULL) {
+        int s1Data = s1->list->current->next->d.i;
+
+        if (addElement(unionResult, s1Data) == ALLOCATION_ERROR) {
             deleteOrderedSet(unionResult);
-            return NULL;
-        };
 
-        currentElement = currentElement->next;
+            return NULL;
+        }
+
+        gotoNextNode(s1->list);
     }
 
-    currentElement = s2->head;
-    while (currentElement != NULL) {
-        if (addElement(unionResult, currentElement->data) == ALLOCATION_ERROR) {
+    gotoHead(s2->list);
+    while (s2->list->current->next != NULL) {
+        int s2Data = s2->list->current->next->d.i;
+
+        if (addElement(unionResult, s2Data) == ALLOCATION_ERROR) {
             deleteOrderedSet(unionResult);
             return NULL;
-        };
-        
-        currentElement = currentElement->next;
+        }
+
+        gotoNextNode(s2->list);
     }
 
     return unionResult;
 }
 
-orderedIntSet* setDifference(orderedIntSet *s1, orderedIntSet *s2) {
-    if ((s1 == NULL) || (s2 == NULL)) {
+orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
+    if (s1 == NULL || s2 == NULL) {
         return NULL;
     }
 
     orderedIntSet *differenceResult = createOrderedSet();
-    Node *currentElement = s1->head;
-    Node *s2currentElement;
 
-    while (currentElement != NULL) {
-        int isInS2 = 0;
-        s2currentElement = s2->head;
+    gotoHead(s1->list);
+    while (s1->list->current->next != NULL) {
+        int s1Data = s1->list->current->next->d.i;
+        int foundInS2 = 0;
 
-        while (s2currentElement != NULL) {
-            if (s2currentElement->data == currentElement->data) {
-                isInS2 = 1; 
+        gotoHead(s2->list);
+        while (s2->list->current->next != NULL) {
+            int s2Data = s2->list->current->next->d.i;
+
+            if (s1Data == s2Data) {
+                foundInS2 = 1;
                 break;
             }
-            s2currentElement = s2currentElement->next;
+
+            gotoNextNode(s2->list);
         }
 
-        if (!isInS2) {
-            if (addElement(differenceResult, currentElement->data) == ALLOCATION_ERROR) {
+        if (!foundInS2) {
+            if (addElement(differenceResult, s1Data) == ALLOCATION_ERROR) {
                 deleteOrderedSet(differenceResult);
+                
                 return NULL;
             }
         }
-
-        currentElement = currentElement->next;
+        gotoNextNode(s1->list);
     }
 
     return differenceResult;
 }
 
-int printToStdout(orderedIntSet *s) {
+int printToStdout(orderedIntSet* s) {
     if (s == NULL) {
         printf("{}\n");
         return 0;
     }
 
-    Node *currentElement = s->head;
-
+    gotoHead(s->list);
     printf("{");
-    while (currentElement != NULL) {
-        printf("%d", currentElement->data);
-        if (currentElement->next) {
+    while (s->list->current->next != NULL) {
+        printf("%d", s->list->current->next->d.i);
+        if (s->list->current->next->next != NULL) {
             printf(", ");
         }
-        
-        currentElement = currentElement->next;
+        gotoNextNode(s->list);
     }
     printf("}\n");
+
+    return 0;
 }
-
-
