@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "OrderedList.h"
+#include "DoubleLinkedListFunctions.h"
+#include "DoubleLinkedListTypeDefs.h"
 
 orderedIntSet *createOrderedSet() {
     orderedIntSet *returnSet = (orderedIntSet *) malloc(sizeof(orderedIntSet));
