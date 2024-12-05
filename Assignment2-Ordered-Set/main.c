@@ -168,8 +168,9 @@ int main() {
         }
 
         case 3: { // Add Element to Set
-            int index, elem;
-            printf("Enter index (0-9) to add elements to an Ordered Set: ");
+            int index;
+            int elem = 0;
+            printf("Enter index (0-9) to add elements to an Ordered Set, a negative number will stop the process.: ");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
@@ -180,29 +181,34 @@ int main() {
                 printf("No set exists at index %d.\n", index);
                 break;
             }
-
-            printf("Enter element to add: ");
-            if (scanf_s("%d", &elem) != 1) {
-                printf("Invalid input. Please enter an integer.\n");
+            while (elem >= 0) {
+                printf("Enter element to add, or a negative number to stop: ");
+                if (scanf_s("%d", &elem) != 1) {
+                    printf("Invalid input. Please enter an integer.\n");
+                    while (getchar() != '\n'); // Clear input buffer
+                    continue;
+                }
+                if (elem >= 0) {
+                    ReturnValues result = addElement(sets[index], elem);
+                    if (result == NUMBER_ADDED) {
+                        printf("Element %d added to the set at index %d.\n", elem, index);
+                    }
+                    else if (result == NUMBER_ALREADY_IN_SET) {
+                        printf("Element %d is already in the set.\n", elem);
+                    }
+                    else {
+                        printf("Error adding element to the set.\n");
+                    }
+                }
                 while (getchar() != '\n'); // Clear input buffer
-                break;
             }
-
-            ReturnValues result = addElement(sets[index], elem);
-            if (result == NUMBER_ADDED) {
-                printf("Element %d added to the set at index %d.\n", elem, index);
-            }
-            else if (result == NUMBER_ALREADY_IN_SET) {
-                printf("Element %d is already in the set.\n", elem);
-            }
-            else {
-                printf("Error adding element to the set.\n");
-            }
+            printToStdout(sets[index]);
             break;
         }
 
         case 4: { // Remove Element from Set
-            int index, elem;
+            int index;
+            int elem =0;
             printf("Enter index (0-9) to remove elements from an Ordered Set: ");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
                 printf("Invalid index. Must be between 0 and 9.\n");
@@ -214,21 +220,25 @@ int main() {
                 printf("No set exists at index %d.\n", index);
                 break;
             }
-
-            printf("Enter element to remove: ");
-            if (scanf_s("%d", &elem) != 1) {
-                printf("Invalid input. Please enter an integer.\n");
+            while (elem >= 0) {
+                printf("Enter element to remove, or a negative number to stop: ");
+                if (scanf_s("%d", &elem) != 1) {
+                    printf("Invalid input. Please enter an integer.\n");
+                    while (getchar() != '\n'); // Clear input buffer
+                    continue;
+                }
+                if (elem >= 0) {
+                    ReturnValues result = removeElement(sets[index], elem);
+                    if (result == NUMBER_REMOVED) {
+                        printf("Element %d removed from the set at index %d.\n", elem, index);
+                    }
+                    else {
+                        printf("Element %d not found in the set.\n", elem);
+                    }
+                }
                 while (getchar() != '\n'); // Clear input buffer
-                break;
             }
-
-            ReturnValues result = removeElement(sets[index], elem);
-            if (result == NUMBER_REMOVED) {
-                printf("Element %d removed from the set at index %d.\n", elem, index);
-            }
-            else {
-                printf("Element %d not found in the set.\n", elem);
-            }
+            printToStdout(sets[index]);
             break;
         }
 
@@ -260,6 +270,7 @@ int main() {
 
             sets[i3] = setIntersection(sets[i1], sets[i2]);
             printf("Set Intersection stored at index %d.\n", i3);
+            printToStdout(sets[i3]);
             break;
         }
 
@@ -291,6 +302,7 @@ int main() {
 
             sets[i3] = setUnion(sets[i1], sets[i2]);
             printf("Set Union stored at index %d.\n", i3);
+            printToStdout(sets[i3]);
             break;
         }
 
@@ -322,10 +334,11 @@ int main() {
 
             sets[i3] = setDifference(sets[i1], sets[i2]);
             printf("Set Difference stored at index %d.\n", i3);
+            printToStdout(sets[i3]);
             break;
         }
 
-      /*  case 9: { // Print Ordered Set
+      /*  case 9: { // Print Ordered Set. The assignment doesn't call for this case. -Sean
             int index;
             printf("Enter index (0-9) of the Ordered Set to print: ");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
@@ -341,8 +354,8 @@ int main() {
                 printToStdout(sets[index]);
             }
             break;
-        }
-        The assignment doesn't call for this case. -Sean*/
+        } */
+
         case 8: // Exit
             printf("Terminating program.\n");
             for (int i = 0; i < MAX_SETS; i++) {

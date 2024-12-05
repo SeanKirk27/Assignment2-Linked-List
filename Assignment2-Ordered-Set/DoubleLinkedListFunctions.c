@@ -353,6 +353,16 @@ llError deleteCurrent(DoubleLinkedList* list) {
 		// Cannot delete current node if its NULL or the head
 		result = illegalNode;
 	}
+	else if (list->current->next == NULL) {
+		// 1. Keep the current node to be deleted.
+		todelete = list->current;
+		// 2. Set Successor of previous to successor of node to be deleted.
+		list->current->prev->next = todelete->next;
+		// 3. Set the current node to the previous node
+		list->current = todelete->prev;
+		// 4. Free the memory of the deleted node
+		free(todelete);
+	}
 	else {
 		// 1. Keep the current node to be deleted.
 		todelete = list->current;

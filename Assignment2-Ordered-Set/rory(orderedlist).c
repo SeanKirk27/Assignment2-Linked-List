@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "OrderedList.h"
-#include "DoubleLinkedListFunctions.h"
-#include "DoubleLinkedListTypeDefs.h"
 
 orderedIntSet *createOrderedSet() {
     orderedIntSet *returnSet = (orderedIntSet *) malloc(sizeof(orderedIntSet));
@@ -63,8 +61,8 @@ ReturnValues removeElement(orderedIntSet *s, int elem) {
     }
 
     gotoHead(s->list);
-    while (s->list->current->next != NULL) {
-        int currentData = s->list->current->next->d.i;
+    while (gotoNextNode(s->list) == ok) {
+        int currentData = s->list->current->d.i;
 
         if (currentData == elem) {
             if (deleteCurrent(s->list) != ok) {
@@ -73,8 +71,6 @@ ReturnValues removeElement(orderedIntSet *s, int elem) {
             s->size--;
             return NUMBER_REMOVED;
         }
-
-        gotoNextNode(s->list);
     }
 
     return NUMBER_NOT_IN_SET;
