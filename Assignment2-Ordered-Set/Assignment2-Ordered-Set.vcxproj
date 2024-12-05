@@ -130,7 +130,7 @@
   <ItemGroup>
     <ClCompile Include="DoubleLinkedListFunctions.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="rory(orderedlist).c" />
+    <ClCompile Include="OrderedListFunctions.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DoubleLinkedListFunctions.h" />

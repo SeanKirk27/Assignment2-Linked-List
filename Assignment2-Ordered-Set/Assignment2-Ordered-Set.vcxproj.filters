@@ -21,7 +21,7 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rory(orderedlist).c">
+    <ClCompile Include="OrderedListFunctions.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

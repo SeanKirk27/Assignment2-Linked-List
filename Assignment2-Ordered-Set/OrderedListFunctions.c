@@ -1,3 +1,22 @@
+/**
+* @file OrderedListFunctions.c
+*
+* @brief Implementation of functions for managing/operating on a double linked list.
+*
+* @details Includes the implemented functions for;
+*  > Creating/deleting in the ordered list.
+*  > Inserting, deleting and getting nodes.
+*  > Moving to the next or previous node in the list.
+*
+* @note
+*
+* @author Rory Huynh - 23374624
+* @note Coding
+* @author Joseph Ennis - 23360798
+* @note Documentation
+* @date 05/12/2024
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "OrderedList.h"
