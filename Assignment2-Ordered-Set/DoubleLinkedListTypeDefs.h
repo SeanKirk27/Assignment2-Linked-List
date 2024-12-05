@@ -5,9 +5,9 @@
 *
 * @details
 * This file contains the core definitons for list operations using typedef structures and enumertions functions for:
-*  > creating, deleting, and managing a double linked list.
-*  > performing insertion, deletion and moving across a list.
-*  > handling runtime errors.
+*  - creating, deleting, and managing a double linked list.
+*  - performing insertion, deletion and moving across a list.
+*  - handling runtime errors.
 *
 * @author Sean Kirk - 23376201
 * @note Coding

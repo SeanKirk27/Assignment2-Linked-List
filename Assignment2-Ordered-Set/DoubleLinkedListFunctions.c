@@ -4,9 +4,9 @@
 * @brief Implementation of functions for managing/operating on a double linked list.
 *
 * @details Includes the implemented functions for;
-*  > Creating/deleting in the double linked list.
-*  > Inserting, deleting and getting nodes.
-*  > Moving to the next or previous node in the list.
+*  - Creating/deleting in the double linked list.
+*  - Inserting, deleting and getting nodes.
+*  - Moving to the next or previous node in the list.
 *
 * @author Sean Kirk - 23376201
 * @note Coding
@@ -29,20 +29,20 @@
 * @post Empty double linked list is created
 *
 * @details 
-* > Allocates memory for the list and its head node.
-* > Initialises the head node with no next or previous nodes. 
-* > Head points to tail resulting in NULL.
-* > Set the current pointer to the head node.
+* - Allocates memory for the list and its head node.
+* - Initialises the head node with no next or previous nodes. 
+* - Head points to tail resulting in NULL.
+* - Set the current pointer to the head node.
 * 
 * ***PSEUDOCODE***
 * 1. Allocate memory for list
 * 2. If successfully allocated, then;
-*		> Allocate memory for head node.
+*		- Allocate memory for head node.
 * 3.		then if head allocation successful, then;
-*				> Set next & previous node from head to NULL
+*				- Set next & previous node from head to NULL
 * 4,		else 
-*				> free lists memory
-*				> set list to NULL
+*				- free lists memory
+*				- set list to NULL
 * 5. return list, end.
 * *****************
 * 
@@ -129,7 +129,7 @@ void *deleteDoubleLinkedList(DoubleLinkedList* list) {
 * 
 * ***PSEUDOCODE***
 * 1. as long as current does not equal NULL, then
-*		> return the address of the current nodes data
+*		- return the address of the current nodes data
 * 2. else, return NULL.
 * ****************
 * 
@@ -163,7 +163,7 @@ data* getData(DoubleLinkedList* list) {
 * 
 * ***PSEUDOCODE***
 * 1. If current's next node doesnt equal tail (NULL) then,
-*		> set current to the next node after current.
+*		- set current to the next node after current.
 * 2. else, return illegal argument.
 * **********8*****
 * 
@@ -201,7 +201,7 @@ llError gotoNextNode(DoubleLinkedList* list) {
 * 
 * ***PSEUDOCODE***
 * 1. If current node doesnt equal head then,
-*		> set current to the previous node before current.
+*		- set current to the previous node before current.
 * 2. else, return illegal argument.
 * **********8*****
 * 
@@ -256,7 +256,7 @@ void gotoHead(DoubleLinkedList* list) {
 * 
 * ***PSEUDOCODE***
 * 1. while loop while next doesnt equal tail (NULL)
-*		> set current to next current
+*		- set current to next current
 * 
 * @param list - A pointer to the 'DoubleLinkedList'
 * 
@@ -282,13 +282,13 @@ void gotoTail(DoubleLinkedList* list) {
 * 
 * ***PSEUDOCODE***
 * 0. cant insert if current is the tail, so if current is NULL, then
-*		> return illegal argument.
+*		- return illegal argument.
 * 1. allocate memory for the new node
 *		1.5. if its unsuccesfull, return no memory error
 * 2. set new node's data to data
 * 3. set new nodes precessor and succesor to current and next after current
 * 4. if current next is not the tail (NULL), then, 
-*		> set current's next previous to the new node
+*		- set current's next previous to the new node
 * 5. set current next to new node.
 * *****************
 * 
@@ -347,7 +347,7 @@ llError insertAfter(data* d, DoubleLinkedList* list) {
 * 
 * ***PSEUDOCODE***
 * 0. cant insert if current is the head, so then
-*		> return illegal argument.
+*		- return illegal argument.
 * 1. allocate memory for the new node
 *		1.5. if its unsuccesfull, return no memory error
 * 2. set new node's data to data
@@ -408,13 +408,13 @@ llError insertBefore(data* d, DoubleLinkedList* list) {
 * 
 * ***PSEUDOCODE***
 * 1. If current is head or tail, then;
-*		> return illegal error
+*		- return illegal error
 * 2. store current (which will be deleted) in a temperary varable
 * 3. if next is null, then;
-*		> set current's previous ad next to NULL
+*		- set current's previous ad next to NULL
 * 4. else set the following;
-*		> current previous next to current next
-*		> curent next previous to current previous
+*		- current previous next to current next
+*		- curent next previous to current previous
 * 5. set current to current's previous
 * 6. free the temp varable
 * ****************

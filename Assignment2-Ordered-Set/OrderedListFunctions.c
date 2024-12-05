@@ -4,10 +4,10 @@
  * @brief Implementation of functions for managing/operating on an ordered integer set.
  *
  * @details This file provides the implementation for:
- *   > Creating and deleting ordered sets.
- *   > Adding, removing, and searching elements.
- *   > Performing set operations such as union, intersection, and difference.
- *   > Printing set contents.
+ *   - Creating and deleting ordered sets.
+ *   - Adding, removing, and searching elements.
+ *   - Performing set operations such as union, intersection, and difference.
+ *   - Printing set contents.
  *
  *
  * @author Rory Huynh - 23374624
@@ -29,10 +29,10 @@
  * @post A new ordered set is initialized and ready for operations.
  *
  * @details 
- * > Allocates memory for a new `orderedIntSet` structure. 
- * > Initializes the set's size to zero and creates an underlying double linked list to manage the set elements.
+ * - Allocates memory for a new `orderedIntSet` structure. 
+ * - Initializes the set's size to zero and creates an underlying double linked list to manage the set elements.
  *
- * Pseudocode:
+ * ***Pseudocode:***
  * 1. Allocate memory for `orderedIntSet`
  * 2. If memory allocation successful, then:
  *      - Initialize `size` to 0
@@ -68,9 +68,9 @@ orderedIntSet *createOrderedSet() {
  * @post The set and its elements are deallocated.
  *
  * @details 
- * > Frees all memory associated with the set, including its underlying double linked list.
+ * - Frees all memory associated with the set, including its underlying double linked list.
  *
- * Pseudocode:
+ * ***Pseudocode:***
  * 1. If `s` is NULL:
  *      - Return `ALLOCATION_ERROR`
  * 2. Otherwise:
@@ -102,11 +102,11 @@ ReturnValues deleteOrderedSet(orderedIntSet *s) {
  * @post The integer `elem` is inserted in sorted order if not already present.
  *
  * @details 
- * > Traverses the list to find the correct position for `elem`. 
- * > If `elem` already exists, the function returns an error code. 
- * > Otherwise, `elem` is inserted, and the set's size is incremented.
+ * - Traverses the list to find the correct position for `elem`. 
+ * - If `elem` already exists, the function returns an error code. 
+ * - Otherwise, `elem` is inserted, and the set's size is incremented.
  * 
- * Pseudocode:
+ * ***Pseudocode:***
  * 1. If `s` is NULL:
  *      - Return `ALLOCATION_ERROR`
  * 2. Move to the head of `s->list`
@@ -166,11 +166,11 @@ ReturnValues addElement(orderedIntSet *s, int elem) {
  * @post If `elem` is present, it is removed and the set's size is decremented.
  *
  * @details 
- * > Searches for `elem` in the set.
- * > If found, it removes the corresponding node.
- * > If not found, an error code is returned.
+ * - Searches for `elem` in the set.
+ * - If found, it removes the corresponding node.
+ * - If not found, an error code is returned.
  *
- * Pseudocode:
+ * ***Pseudocode:***
  * 1. If `s` is NULL:
  *      - Return `ALLOCATION_ERROR`
  * 2. Move to the head of `s->list`
@@ -218,7 +218,7 @@ ReturnValues removeElement(orderedIntSet *s, int elem) {
  * @post Returns a new set containing elements common to both `s1` and `s2`.
  *
  * @details 
- * > Iterates over both sets to identify common elements and adds them to a new set.
+ * - Iterates over both sets to identify common elements and adds them to a new set.
  * 
  * Pseudocode:
  * 1. If `s1` or `s2` is NULL:
@@ -286,9 +286,9 @@ orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
  * @post A new ordered set is created containing all unique elements from both input sets.
  *
  * @details
- * > The union operation combines all elements from set `s1` and set `s2`.
- * > The resulting set contains only unique elements, maintaining sorted order.
- * > Both input sets remain unchanged.
+ * - The union operation combines all elements from set `s1` and set `s2`.
+ * - The resulting set contains only unique elements, maintaining sorted order.
+ * - Both input sets remain unchanged.
  * 
  * Pseudocode:
  * 1. If `s1` or `s2` is NULL:
@@ -358,8 +358,8 @@ orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
  * @post A new ordered set is created containing elements in `s1` that are not in `s2`.
  *
  * @details
- * > The difference operation returns a set containing all elements that are present in `s1` but not in `s2`.
- * > The resulting set is sorted, and both input sets remain unchanged.
+ * - The difference operation returns a set containing all elements that are present in `s1` but not in `s2`.
+ * - The resulting set is sorted, and both input sets remain unchanged.
  * 
  * Pseudocode:
  * 1. If `s1` or `s2` is NULL:
@@ -429,9 +429,9 @@ orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
  * @post The elements of the set are printed in ascending order.
  *
  * @details
- * > Iterates through all elements in the ordered set and prints their values.
- * > Elements are printed in the format `{e1, e2, e3, ...}`.
- * > If the set is empty or NULL, prints `{}`.
+ * - Iterates through all elements in the ordered set and prints their values.
+ * - Elements are printed in the format `{e1, e2, e3, ...}`.
+ * - If the set is empty or NULL, prints `{}`.
  * 
  * Pseudocode:
  * 1. If `s` is NULL:

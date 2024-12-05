@@ -4,9 +4,9 @@
 * @brief A menu-driven program for managing ordered sets.
 * 
 * @details
-* > This program provides operations to create, delete, add, and remove elements from ordered sets. Additionally, it includes set operations such as intersection,union, and difference.
+* - This program provides operations to create, delete, add, and remove elements from ordered sets. Additionally, it includes set operations such as intersection,union, and difference.
 * 
-* @notes
+* @note
 * This project work load was split as follows:
 * Sean Kirk (23376201) - Coded the data Structure - Double Linked List section and their header files.
 * Mihail Bizjajevs (23364734) - Documented (doxygen, comments, etc.) Sean Kirk's files.
