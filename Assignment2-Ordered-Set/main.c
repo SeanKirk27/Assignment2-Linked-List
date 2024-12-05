@@ -42,11 +42,14 @@ void displayMenu() {
     printf("7. Set Difference\n");
     printf("8. Terminate Program\n");
 }
-
-///> Placeholder functions for the actual operations (to be implemented elsewhere) -- ********Commented out******** ******Move the relevant documentation to OrderedListFunction.c********
+/**
+* ///> Placeholder functions for the actual operations (to be implemented elsewhere) -- ********Commented out******** ******Move the relevant documentation to OrderedListFunction.c********
+*/
 /**
  * @brief Creates an ordered set at the specified index.
+ * 
  * @param index Index of the ordered set to be created.
+ * ///>—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
  */
  // createOrderedSet(int index);
 
