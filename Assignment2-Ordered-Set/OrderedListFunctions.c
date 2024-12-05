@@ -1,13 +1,14 @@
 /**
-* @file OrderedListFunctions.c
-*
-* @brief Implementation of functions for managing/operating on a double linked list.
-*
-* @details Includes the implemented functions for;
-*  > Creating/deleting in the ordered list.
-*  > Inserting, deleting and getting nodes.
-*  > Moving to the next or previous node in the list.
-*
+ * @file OrderedListFunctions.c
+ *
+ * @brief Implementation of functions for managing/operating on an ordered integer set.
+ *
+ * @details This file provides the implementation for:
+ *   > Creating and deleting ordered sets.
+ *   > Adding, removing, and searching elements.
+ *   > Performing set operations such as union, intersection, and difference.
+ *   > Printing set contents.
+ *
 * @note
 *
 * @author Rory Huynh - 23374624
@@ -21,11 +22,16 @@
 #include <stdlib.h>
 #include "OrderedList.h"
 /**
- * @brief Creates an empty ordered integer set.
+ * @brief Creates a new ordered integer set.
  *
- * Allocates memory for an orderedIntSet structure and initializes it.
+ * @pre None.
+ * @post A new ordered set is initialized and ready for operations.
  *
- * @return Pointer to the newly created orderedIntSet, or exits on allocation failure.
+ * @details 
+ * > Allocates memory for a new `orderedIntSet` structure. 
+ * > Initializes the set's size to zero and creates an underlying double linked list to manage the set elements.
+ *
+ * @return A pointer to the newly created ordered set, or exits the program on allocation failure.
  */
 orderedIntSet *createOrderedSet() {
     orderedIntSet *returnSet = (orderedIntSet *) malloc(sizeof(orderedIntSet));
@@ -41,12 +47,17 @@ orderedIntSet *createOrderedSet() {
     return returnSet;
 }
 /**
- * @brief Deletes an ordered integer set and frees memory.
+ * @brief Deletes an ordered integer set and frees associated memory.
  *
- * Frees memory associated with the set's list and the set itself.
+ * @pre The set `s` must be valid (non-NULL).
+ * @post The set and its elements are deallocated.
  *
- * @param s Pointer to the orderedIntSet to delete.
- * @return ReturnValues indicating success or error type.
+ * @details 
+ * > Frees all memory associated with the set, including its underlying double linked list.
+ *
+ * @param s A pointer to the `orderedIntSet` to be deleted.
+ *
+ * @return `ALLOCATION_ERROR` if `s` is NULL, otherwise `NUMBER_REMOVED`.
  */
 ReturnValues deleteOrderedSet(orderedIntSet *s) {
     if (s == NULL) {
@@ -59,13 +70,20 @@ ReturnValues deleteOrderedSet(orderedIntSet *s) {
     return NUMBER_REMOVED;
 }
 /**
- * @brief Adds an element to the ordered set.
+ * @brief Adds an integer element to the ordered set.
  *
- * Inserts an integer into the set while maintaining the order.
+ * @pre The set `s` must be valid (non-NULL).
+ * @post The integer `elem` is inserted in sorted order if not already present.
  *
- * @param s Pointer to the orderedIntSet.
- * @param elem The integer to add.
- * @return ReturnValues indicating success or error type.
+ * @details 
+ * > Traverses the list to find the correct position for `elem`. 
+ * > If `elem` already exists, the function returns an error code. 
+ * > Otherwise, `elem` is inserted, and the set's size is incremented.
+ *
+ * @param s A pointer to the `orderedIntSet`.
+ * @param elem The integer element to be added.
+ *
+ * @return `NUMBER_ADDED` if successful, `NUMBER_ALREADY_IN_SET` if `elem` exists, or `ALLOCATION_ERROR` on failure.
  */
 ReturnValues addElement(orderedIntSet *s, int elem) {
     if (s == NULL) {
@@ -95,13 +113,20 @@ ReturnValues addElement(orderedIntSet *s, int elem) {
     return NUMBER_ADDED;
 }
 /**
- * @brief Removes an element from the ordered set.
+ * @brief Removes an integer element from the ordered set.
  *
- * Deletes a specified integer from the set if it exists.
+ * @pre The set `s` must be valid (non-NULL).
+ * @post If `elem` is present, it is removed and the set's size is decremented.
  *
- * @param s Pointer to the orderedIntSet.
- * @param elem The integer to remove.
- * @return ReturnValues indicating success or error type.
+ * @details 
+ * > Searches for `elem` in the set.
+ * > If found, it removes the corresponding node.
+ * > If not found, an error code is returned.
+ *
+ * @param s A pointer to the `orderedIntSet`.
+ * @param elem The integer element to be removed.
+ *
+ * @return `NUMBER_REMOVED` if `elem` was removed, `NUMBER_NOT_IN_SET` if not found, or `ALLOCATION_ERROR` on failure.
  */
 ReturnValues removeElement(orderedIntSet *s, int elem) {
     if (s == NULL) {
@@ -129,11 +154,16 @@ ReturnValues removeElement(orderedIntSet *s, int elem) {
 /**
  * @brief Computes the intersection of two ordered sets.
  *
- * Returns a new set containing elements common to both input sets.
+ * @pre Both sets `s1` and `s2` must be valid (non-NULL).
+ * @post Returns a new set containing elements common to both `s1` and `s2`.
  *
- * @param s1 Pointer to the first orderedIntSet.
- * @param s2 Pointer to the second orderedIntSet.
- * @return Pointer to the new orderedIntSet containing the intersection.
+ * @details 
+ * > Iterates over both sets to identify common elements and adds them to a new set.
+ *
+ * @param s1 A pointer to the first `orderedIntSet`.
+ * @param s2 A pointer to the second `orderedIntSet`.
+ *
+ * @return A pointer to the resulting set, or `NULL` on failure.
  */
 orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
@@ -169,14 +199,24 @@ orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
     return intersectionResult;
 }
 /**
- * @brief Computes the union of two ordered sets.
- *
- * Returns a new set containing all unique elements from both input sets.
- *
- * @param s1 Pointer to the first orderedIntSet.
- * @param s2 Pointer to the second orderedIntSet.
- * @return Pointer to the new orderedIntSet containing the union.
- */
+* @brief Computes the union of two ordered sets and returns the result as a new set.
+*
+* @pre Two valid ordered sets exist.
+* @post A new ordered set is created containing all unique elements from both input sets.
+*
+* @details
+* > The union operation combines all elements from set `s1` and set `s2`.
+* > The resulting set contains only unique elements, maintaining sorted order.
+* > Both input sets remain unchanged.
+*
+* @param s1 - A pointer to the first 'orderedIntSet'.
+* @param s2 - A pointer to the second 'orderedIntSet'.
+*
+* @return A pointer to a new 'orderedIntSet' representing the union of `s1` and `s2`.
+*         Returns NULL if both input sets are NULL.
+*
+* @note Memory allocation is performed for the new set. The caller is responsible for freeing this memory.
+*/
 orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
         return NULL;
@@ -212,14 +252,23 @@ orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
     return unionResult;
 }
 /**
- * @brief Computes the difference of two ordered sets.
- *
- * Returns a new set containing elements in the first set that are not in the second.
- *
- * @param s1 Pointer to the first orderedIntSet.
- * @param s2 Pointer to the second orderedIntSet.
- * @return Pointer to the new orderedIntSet containing the difference.
- */
+* @brief Computes the difference between two ordered sets and returns the result as a new set.
+*
+* @pre Two valid ordered sets exist.
+* @post A new ordered set is created containing elements in `s1` that are not in `s2`.
+*
+* @details
+* > The difference operation returns a set containing all elements that are present in `s1` but not in `s2`.
+* > The resulting set is sorted, and both input sets remain unchanged.
+*
+* @param s1 - A pointer to the first 'orderedIntSet' (the minuend set).
+* @param s2 - A pointer to the second 'orderedIntSet' (the subtrahend set).
+*
+* @return A pointer to a new 'orderedIntSet' representing the difference of `s1` and `s2`.
+*         Returns NULL if `s1` is NULL. If `s2` is NULL, the result is a copy of `s1`.
+*
+* @note Memory allocation is performed for the new set. The caller is responsible for freeing this memory.
+*/
 orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
         return NULL;
@@ -257,13 +306,22 @@ orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
     return differenceResult;
 }
 /**
- * @brief Prints the elements of an ordered set to the standard output.
- *
- * Displays the set in the format {elem1, elem2, ...}.
- *
- * @param s Pointer to the orderedIntSet.
- * @return 0 on success.
- */
+* @brief Computes and prints the contents of the given ordered set to the standard output.
+*
+* @pre A valid ordered set exists.
+* @post The elements of the set are printed in ascending order.
+*
+* @details
+* > Iterates through all elements in the ordered set and prints their values.
+* > Elements are printed in the format `{e1, e2, e3, ...}`.
+* > If the set is empty or NULL, prints `{}`.
+*
+* @param s - A pointer to the 'orderedIntSet' to be printed.
+*
+* @return The number of elements in the set.
+*
+* @note This function does not modify the structure of the set.
+*/
 int printToStdout(orderedIntSet* s) {
     if (s == NULL) {
         printf("{}\n");
@@ -283,3 +341,6 @@ int printToStdout(orderedIntSet* s) {
 
     return 0;
 }
+// —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+// END OF OREDEREDLISTFUNCTIONS.C
