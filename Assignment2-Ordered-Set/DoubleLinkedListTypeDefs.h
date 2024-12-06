@@ -13,7 +13,7 @@
 * @note Coding
 * @author Mihail Bizjajevs - 23364734
 * @note Documentation
-* @date 04/12/2024
+* @date 06/12/2024
 * 
 * @note Additional group members include: Ali Farah (23380098), Rory Huynh (23374624), Joseph Ennis (23360798)  
 */
@@ -26,9 +26,8 @@
 *
 * @brief Enumeration for error codes in Double Linked List Operations.
 *
-* @details Identifies issues during runtime, like;
-* > 'ok': Successful operation, aka. No error.
-* > Errors.
+* @details Identifies issues during runtime evaluating errors like;
+* 
 */
 typedef enum { ok,		///< Successful operation. No error.
 illegalNode,			///< Invalid node accessed/modified error
@@ -48,13 +47,13 @@ typedef struct {
 } data;
 
 /**
-* @struct Node (n)
+* @struct Node
 *
 * @brief Represents an element (single node) in the double linked list.
 *
 * @details it has the following;
-* > 'data d' - object to store user info
-* > Pointers
+* - 'data d' - object to store user info
+* - Pointers
 */
 typedef struct n {		///< dummy name (n) before declaring Node name
 	data d;				///< data stored in node
@@ -65,13 +64,13 @@ typedef struct n {		///< dummy name (n) before declaring Node name
 
 /**
 * @struct DoubleLinkedList
-*
+* 
 * @brief Represents the entire double linked list.
 *
 * @details It keeps track of the 'head' and 'current' node.
 */
 typedef struct {
-	Node* head;			///< Pointer to the first node.
+	Node* head;			///< Pointer to the first node. 
 	Node* current;		///< Pointer the the current node.
 } DoubleLinkedList;
 
