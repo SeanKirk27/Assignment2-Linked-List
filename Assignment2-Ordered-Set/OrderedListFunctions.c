@@ -243,13 +243,19 @@ orderedIntSet *setIntersection(orderedIntSet *s1, orderedIntSet *s2) {
         return NULL;// Return NULL if inputs are invalid
     }
     // If both sets are the same, return the original set
-    else if (s1 == s2) {
-        return s1;
-    }
 
+    int sData;
     // Create a new set to store the intersection result
     orderedIntSet *intersectionResult = createOrderedSet();
-    
+    if (s1 == s2) {
+        gotoHead(s1->list);
+        while (s1->list->current->next != NULL) {
+            sData = s1->list->current->next->d.i;
+            addElement(intersectionResult, sData);
+            gotoNextNode(s1->list);
+        }
+        return intersectionResult;
+    }
     // Traverse through the first set
     gotoHead(s1->list);
     while (s1->list->current->next != NULL) {
@@ -313,10 +319,18 @@ orderedIntSet *setUnion(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
         return NULL;// Return NULL if inputs are invalid
     }
-
+    int sData;
     // Create a new set to store the union result
     orderedIntSet *unionResult = createOrderedSet();
-
+    if (s1 == s2) {
+        gotoHead(s1->list);
+        while (s1->list->current->next != NULL) {
+            sData = s1->list->current->next->d.i;
+            addElement(unionResult, sData);
+            gotoNextNode(s1->list);
+        }
+        return unionResult;
+    }
     // Add all elements from the first set to the union result
     gotoHead(s1->list);
     while (s1->list->current->next != NULL) {
@@ -383,10 +397,18 @@ orderedIntSet *setDifference(orderedIntSet *s1, orderedIntSet *s2) {
     if (s1 == NULL || s2 == NULL) {
         return NULL;// Return NULL if inputs are invalid
     }
-
+    int sData;
     // Create a new set to store the difference result
     orderedIntSet *differenceResult = createOrderedSet();
-
+    if (s1 == s2) {
+        gotoHead(s1->list);
+        while (s1->list->current->next != NULL) {
+            sData = s1->list->current->next->d.i;
+            addElement(differenceResult, sData);
+            gotoNextNode(s1->list);
+        }
+        return differenceResult;
+    }
     // Traverse through the first set
     gotoHead(s1->list);
     while (s1->list->current->next != NULL) {
