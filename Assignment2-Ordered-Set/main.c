@@ -121,10 +121,16 @@ int main() {
 
     do {
         printf("\nEnter your choice: ");
-        if (scanf_s("%d", &choice) != 1) {
+        if (scanf_s("%d", &choice) != 1) {// Check if input is an integer
+            /*
+             * If the user enters invalid input (e.g., non-integer),
+             * the program prompts the user to enter a valid number.
+             * This ensures robust error handling and prevents invalid
+             * values from affecting program logic.
+             */
             printf("Invalid input. Please enter a number.\n");
             while (getchar() != '\n'); // Clear input buffer
-            continue;
+            continue;// Restart the loop
         }
 
         switch (choice) {
@@ -132,15 +138,28 @@ int main() {
             int index;
             printf("Enter index (0-9) to create an Ordered Set:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
+                /*
+                    * The user is asked to input a valid index between 0 and 9.
+                    * If the input is invalid (non-integer or out of range),
+                    * the program informs the user and skips this case.
+                    */
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
-                break;
+                break;// Exit this case and return to the menu
             }
 
-            if (sets[index] != NULL) {
+            if (sets[index] != NULL) { /*
+                     * Check if an ordered set already exists at the specified index.
+                     * If so, the user is notified that they must delete the set
+                     * before creating a new one at the same index.
+                     */
                 printf("Set already exists at index %d. Delete it first.\n", index);
             }
             else {
+                /*
+                    * If the index is valid and no set exists at that index,
+                    * create a new ordered set and store it at the specified index.
+                    */
                 sets[index] = createOrderedSet();
                 printf("Created ordered set at index %d.\n", index);
             }
@@ -151,15 +170,28 @@ int main() {
             int index;
             printf("Enter index (0-9) to delete an Ordered Set:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
+                /*
+                    * The user is asked to input a valid index for deletion.
+                    * If the input is invalid (non-integer or out of range),
+                    * the program informs the user and skips this case.
+                    */
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
             }
 
             if (sets[index] == NULL) {
+                /*
+                    * Check if an ordered set exists at the specified index.
+                    * If no set exists, notify the user and do nothing.
+                    */
                 printf("No set exists at index %d.\n", index);
             }
             else {
+                /*
+                    * If a set exists at the specified index, delete it using
+                    * the `deleteOrderedSet` function and set the pointer to NULL.
+                    */
                 deleteOrderedSet(sets[index]);
                 sets[index] = NULL;
                 printf("Deleted ordered set at index %d.\n", index);
@@ -172,22 +204,41 @@ int main() {
             int elem = 0;
             printf("Enter index (0-9) to add elements to an Ordered Set, a negative number will stop the process.:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
+                /*
+                    * The user is asked to input a valid index for adding an element.
+                    * If the input is invalid (non-integer or out of range),
+                    * the program informs the user and skips this case.
+                    */
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
             }
 
             if (sets[index] == NULL) {
+                /*
+                    * Check if an ordered set exists at the specified index.
+                    * If no set exists, notify the user and do nothing.
+                    */
                 printf("No set exists at index %d.\n", index);
                 break;
             }
             while (elem >= 0) {
                 printf("Enter element to add, or a negative number to stop: ");
                 if (scanf_s("%d", &elem) != 1) {
+                    /*
+                   * Prompt the user to enter a valid integer element.
+                   * If the input is invalid (non-integer), inform the user
+                   * and skip this case.
+                   */
                     printf("Invalid input. Please enter an integer. If a decimal number was added, it was cut down to an integer.\n");
                     while (getchar() != '\n'); // Clear input buffer
                     continue;
                 }
+                /*
+                 * Attempt to add the element to the ordered set at the specified index.
+                 * The `addElement` function provides feedback on whether the element
+                 * was successfully added, already existed, or if there was an error.
+                 */
                 if (elem >= 0) {
                     ReturnValues result = addElement(sets[index], elem);
                     if (result == NUMBER_ADDED) {
@@ -210,22 +261,39 @@ int main() {
             int elem = 0;
             printf("Enter index (0-9) to remove elements from an Ordered Set:\n");
             if (scanf_s("%d", &index) != 1 || index < 0 || index >= MAX_SETS) {
+                /*
+                    * Validate the index for removing an element.
+                    * If invalid, notify the user and skip the case.
+                    */
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
             }
 
             if (sets[index] == NULL) {
+                /*
+                     * Check if an ordered set exists at the specified index.
+                     * If no set exists, notify the user and skip this case.
+                     */
                 printf("No set exists at index %d.\n", index);
                 break;
             }
             while (elem >= 0) {
                 printf("Enter element to remove, or a negative number to stop: ");
                 if (scanf_s("%d", &elem) != 1) {
+                    /*
+                    * Prompt the user to input a valid integer element for removal.
+                    * If invalid, notify the user and skip this case.
+                    */
                     printf("Invalid input. Please enter an integer.\n");
                     while (getchar() != '\n'); // Clear input buffer
                     continue;
                 }
+                /*
+                * Attempt to remove the specified element from the ordered set.
+                * Provide feedback on whether the element was removed successfully
+                * or not found in the set.
+                */
                 if (elem >= 0) {
                     ReturnValues result = removeElement(sets[index], elem);
                     if (result == NUMBER_REMOVED) {
@@ -241,10 +309,15 @@ int main() {
         }
 
         case 5: { // Set Intersection
-            int i1, i2, i3;
+            int i1, i2, i3;// Declare indices for input sets and result set
             printf("Enter two indices for Set Intersection (i1, i2):\n");
             if (scanf_s("%d %d", &i1, &i2) != 2 ||
                 i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS) {
+                /*
+                    * Validate input indices for the two sets.
+                    * Indices must be between 0 and MAX_SETS - 1.
+                    * If invalid, clear the input buffer and inform the user.
+                    */
                 printf("Invalid indices. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
@@ -252,11 +325,19 @@ int main() {
 
             printf("Enter index to store the result (i3):\n");
             if (scanf_s("%d", &i3) != 1 || i3 < 0 || i3 >= MAX_SETS) {
+                /*
+                    * Validate the index for the result set.
+                    * If invalid, clear the input buffer and inform the user.
+                    */
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
-            }
+            }/*
+                     * Check if both input sets exist.
+                     * If not, inform the user and exit this case.
+                     */
             if (sets[i1] = NULL && sets[i2] == NULL) {
+
                 printf("No ordered set available at index %d or index %d Intersection cannot be found.\n", i1, i2);
                 break;
             }
@@ -269,9 +350,17 @@ int main() {
                 break;
             }
             if (sets[i3] != NULL) {
+                /*
+                    * If a set already exists at the result index, delete it first
+                    * to free memory and prepare for the new result.
+                    */
                 deleteOrderedSet(sets[i3]); // Clear the existing set
             }
 
+            /*
+             * Perform the intersection operation using `setIntersection`.
+             * Store the resulting set in the specified result index.
+             */
             sets[i3] = setIntersection(sets[i1], sets[i2]);
             printf("Set Intersection stored at index %d.\n", i3);
             printToStdout(sets[i3]);
@@ -279,10 +368,15 @@ int main() {
         }
 
         case 6: { // Set Union
-            int i1, i2, i3;
+            int i1, i2, i3;// Declare indices for input sets and result set
             printf("Enter two indices for Set Union (i1, i2):\n");
             if (scanf_s("%d %d", &i1, &i2) != 2 ||
                 i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS) {
+                /*
+                     * Validate input indices for the two sets.
+                     * Indices must be between 0 and MAX_SETS - 1.
+                     * If invalid, clear the input buffer and inform the user.
+                     */
                 printf("Invalid indices. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
@@ -290,11 +384,18 @@ int main() {
 
             printf("Enter index to store the result (i3):\n");
             if (scanf_s("%d", &i3) != 1 || i3 < 0 || i3 >= MAX_SETS) {
+                /*
+                    * Validate the index for the result set.
+                    * If invalid, clear the input buffer and inform the user.
+                    */
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
             }
-
+            /*
+                     * Check if both input sets exist.
+                     * If not, inform the user and exit this case.
+                     */
             if (sets[i1] = NULL && sets[i2] == NULL) {
                 printf("No ordered set available at index %d or index %d. Union cannot be found.\n", i1, i2);
                 break;
@@ -308,9 +409,16 @@ int main() {
                 break;
 
                 if (sets[i3] != NULL) {
+                    /*
+                    * If a set already exists at the result index, delete it first
+                    * to free memory and prepare for the new result.
+                    */
                     deleteOrderedSet(sets[i3]); // Clear the existing set
                 }
-
+                /*
+                                * Perform the union operation using `setUnion`.
+                                * Store the resulting set in the specified result index.
+                                */
                 sets[i3] = setUnion(sets[i1], sets[i2]);
                 printf("Set Union stored at index %d.\n", i3);
                 printToStdout(sets[i3]);
@@ -318,10 +426,15 @@ int main() {
             }
 
         case 7: { // Set Difference
-            int i1, i2, i3;
+            int i1, i2, i3;// Declare indices for input sets and result set
             printf("Enter two indices for Set Difference (i1, i2):\n");
             if (scanf_s("%d %d", &i1, &i2) != 2 ||
                 i1 < 0 || i1 >= MAX_SETS || i2 < 0 || i2 >= MAX_SETS) {
+                /*
+                    * Validate input indices for the two sets.
+                    * Indices must be between 0 and MAX_SETS - 1.
+                    * If invalid, clear the input buffer and inform the user.
+                    */
                 printf("Invalid indices. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
@@ -329,12 +442,19 @@ int main() {
 
             printf("Enter index to store the result (i3):\n");
             if (scanf_s("%d", &i3) != 1 || i3 < 0 || i3 >= MAX_SETS) {
+                /*
+                     * Validate the index for the result set.
+                     * If invalid, clear the input buffer and inform the user.
+                     */
                 printf("Invalid index. Must be between 0 and 9.\n");
                 while (getchar() != '\n'); // Clear input buffer
                 break;
             }
 
-            if (sets[i1] = NULL && sets[i2] == NULL) {
+            if (sets[i1] = NULL && sets[i2] == NULL) {/*
+                     * Check if both input sets exist.
+                     * If not, inform the user and exit this case.
+                     */
                 printf("No ordered set available at index %d or index %d Difference cannot be found.\n", i1, i2);
                 break;
             }
@@ -347,18 +467,28 @@ int main() {
                 break;
             }
 
-            if (sets[i3] != NULL) {
+            if (sets[i3] != NULL) { /*
+                     * If a set already exists at the result index, delete it first
+                     * to free memory and prepare for the new result.
+                     */
                 deleteOrderedSet(sets[i3]); // Clear the existing set
             }
-
+            /*
+                             * Perform the difference operation using `setDifference`.
+                             * Store the resulting set in the specified result index.
+                             */
             sets[i3] = setDifference(sets[i1], sets[i2]);
             printf("Set Difference stored at index %d.\n", i3);
             printToStdout(sets[i3]);
             break;
         }
 
-        case 8: // Exit
+        case 8: // Terminate program
             printf("Terminating program.\n");
+            /*
+                * Loop through all possible sets in the `sets` array.
+                * If a set exists at an index, delete it to free memory.
+                */
             for (int i = 0; i < MAX_SETS; i++) {
                 if (sets[i] != NULL) {
                     deleteOrderedSet(sets[i]);
@@ -375,3 +505,6 @@ int main() {
 
         return 0;
     }
+    // —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+// END OF MAIN.C
