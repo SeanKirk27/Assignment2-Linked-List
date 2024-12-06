@@ -48,7 +48,7 @@ typedef struct {
 } data;
 
 /**
-* @struct Node
+* @struct Node (n)
 *
 * @brief Represents an element (single node) in the double linked list.
 *
@@ -56,7 +56,7 @@ typedef struct {
 * > 'data d' - object to store user info
 * > Pointers
 */
-typedef struct n {		// dummy name (n) before declaring Node name
+typedef struct n {		///< dummy name (n) before declaring Node name
 	data d;				///< data stored in node
 	struct n* prev;		///< Pointer to previous node in the list.
 	struct n* next;		///< Pointer to the next node in the list.
