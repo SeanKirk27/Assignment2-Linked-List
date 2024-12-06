@@ -97,7 +97,7 @@ DoubleLinkedList* createDoubleLinkedList() {
 * 
 * @warning once called, all pointer referencing nodes will become invalid. 
 */
-void *deleteDoubleLinkedList(DoubleLinkedList* list) {
+void deleteDoubleLinkedList(DoubleLinkedList* list) {
 	if (list == NULL) {
 		return; // If the returned list is NULL, there is nothing to delete
 	}
