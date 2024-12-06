@@ -21,7 +21,7 @@
 #define DoubleLinkedListFunctions_h
 
 DoubleLinkedList* createDoubleLinkedList();
-void* deleteDoubleLinkedList(DoubleLinkedList* list);
+void deleteDoubleLinkedList(DoubleLinkedList* list);
 data* getData(DoubleLinkedList* list);
 llError gotoNextNode(DoubleLinkedList* list);
 llError gotoPreviousNode(DoubleLinkedList* list);
